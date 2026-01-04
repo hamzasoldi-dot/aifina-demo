@@ -7,119 +7,317 @@
 
   <style>
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0b1220, #111b34);
-      color: #ffffff;
+      color: #111827;
+      background: #ffffff;
     }
 
-    /* LOGIN */
+    /* ---------- LOGIN (Gemini/Google-like) ---------- */
     #login {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 16px;
     }
 
     .login-card {
-      width: 360px;
-      padding: 32px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 18px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
-
-    .login-card h1 { margin: 0 0 8px 0; }
-    .login-card p { margin: 0 0 24px 0; opacity: 0.8; }
-
-    .login-card input {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 14px;
+      max-width: 448px;
+      border: 1px solid #e5e7eb;
       border-radius: 10px;
-      border: none;
-      outline: none;
+      padding: 28px 24px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .login-card button {
+    .brand-wrap { margin-bottom: 18px; text-align: center; }
+    .logo-circle {
+      width: 48px; height: 48px;
+      border: 1px solid #f3f4f6;
+      border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      margin: 0 auto 8px auto;
+      background: #fff;
+    }
+    .brand-name {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      color: #374151;
+    }
+
+    .login-title {
+      font-size: 24px;
+      font-weight: 400;
+      margin: 0 0 6px 0;
+      color: #111827;
+      text-align: center;
+    }
+    .login-subtitle {
+      font-size: 16px;
+      color: #6b7280;
+      margin: 0 0 20px 0;
+      text-align: center;
+    }
+
+    .form {
       width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      background: #ffffff;
-      color: #0b1220;
     }
 
-    /* APP */
+    .field {
+      position: relative;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .input {
+      width: 100%;
+      padding: 14px 14px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      outline: none;
+      background: #fff;
+    }
+    .input:focus {
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 1px #1a73e8;
+    }
+
+    .label {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      color: #6b7280;
+      font-size: 16px;
+      pointer-events: none;
+      transition: all 0.15s ease;
+      background: #fff;
+    }
+
+    /* float label */
+    .input:focus + .label,
+    .input.not-empty + .label {
+      top: -8px;
+      left: 10px;
+      font-size: 12px;
+      color: #1a73e8;
+      padding: 0 6px;
+    }
+
+    .link {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: #1a73e8;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 0;
+      cursor: pointer;
+    }
+    .link:hover { color: #165fc1; }
+
+    .hint {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.45;
+      margin: 12px 0 0 0;
+    }
+    .hint a {
+      color: #1a73e8;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .hint a:hover { text-decoration: underline; }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 18px;
+    }
+
+    .ghost-btn {
+      border: none;
+      background: transparent;
+      color: #1a73e8;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .ghost-btn:hover { background: #eef6ff; }
+
+    .primary-btn {
+      background: #1a73e8;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      min-width: 88px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .primary-btn:hover { background: #1b66c9; box-shadow: 0 6px 14px rgba(26,115,232,0.18); }
+    .primary-btn:disabled { opacity: 0.7; cursor: not-allowed; box-shadow: none; }
+
+    .spinner {
+      width: 16px; height: 16px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.45);
+      border-top-color: #fff;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer {
+      margin-top: 18px;
+      width: 100%;
+      max-width: 448px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: #6b7280;
+      font-size: 12px;
+      align-items: center;
+    }
+    .footer-row {
+      width: 100%;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #6b7280;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lang-btn:hover { background: #f3f4f6; }
+    .footer a {
+      color: #6b7280;
+      text-decoration: none;
+    }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ---------- APP SHELL ---------- */
     #app {
       display: none;
       min-height: 100vh;
-      display: flex;
+      background: #0b1220;
+      color: #e5e7eb;
     }
-
-    /* SIDEBAR */
+    .app-wrap {
+      display: flex;
+      min-height: 100vh;
+    }
     .sidebar {
       width: 260px;
-      padding: 20px;
       background: rgba(255,255,255,0.05);
-      border-right: 1px solid rgba(255,255,255,0.1);
+      border-right: 1px solid rgba(255,255,255,0.10);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
-
-    .sidebar h2 { margin: 0 0 4px 0; }
-    .sidebar span { font-size: 12px; opacity: 0.7; }
-
-    .nav-btn {
+    .sb-brand {
+      font-weight: 900;
+      letter-spacing: 0.6px;
+      font-size: 18px;
+      margin-bottom: 2px;
+    }
+    .sb-sub {
+      opacity: 0.75;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .sb-group {
+      font-size: 11px;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      margin: 10px 0 6px 0;
+    }
+    .navbtn {
       width: 100%;
-      margin-top: 12px;
-      padding: 12px 14px;
+      text-align: left;
+      padding: 10px 12px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.06);
-      color: white;
+      color: #e5e7eb;
       cursor: pointer;
-      text-align: left;
-      font-weight: 600;
+      font-weight: 700;
     }
+    .navbtn:hover { background: rgba(255,255,255,0.12); }
+    .navbtn.active { background: rgba(255,255,255,0.18); }
 
-    .nav-btn:hover,
-    .nav-btn.active {
-      background: rgba(255,255,255,0.15);
+    .sb-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
+    .logout {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: #e5e7eb;
+      cursor: pointer;
+      font-weight: 700;
     }
+    .logout:hover { background: rgba(255,255,255,0.08); }
 
-    /* MAIN */
     .main {
       flex: 1;
-      padding: 32px;
+      padding: 26px;
     }
-
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .logout {
-      padding: 8px 14px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 18px;
-      padding: 20px;
+      gap: 12px;
       margin-bottom: 16px;
     }
-
+    .page-title {
+      font-size: 20px;
+      font-weight: 900;
+      margin: 0;
+    }
+    .badge {
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      opacity: 0.95;
+      white-space: nowrap;
+    }
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 14px;
+    }
     .card h3 { margin: 0 0 8px 0; }
-
+    .muted { opacity: 0.85; margin: 0; }
   </style>
 </head>
 
@@ -128,76 +326,249 @@
   <!-- LOGIN -->
   <div id="login">
     <div class="login-card">
-      <h1>AIFINA</h1>
-      <p>Sign in to your dashboard</p>
+      <div class="brand-wrap">
+        <div class="logo-circle" aria-hidden="true">
+          <!-- simple sparkle-like icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l1.6 6.2L20 12l-6.4 3.8L12 22l-1.6-6.2L4 12l6.4-3.8L12 2z" stroke="#1a73e8" stroke-width="1.6" />
+          </svg>
+        </div>
+        <div class="brand-name">AIFINA</div>
+      </div>
 
-      <input placeholder="Email" />
-      <input type="password" placeholder="Password" />
+      <div style="width:100%; text-align:center;">
+        <h1 id="loginTitle" class="login-title">Sign in</h1>
+        <p id="loginSubtitle" class="login-subtitle">Use your AIFINA Account</p>
+      </div>
 
-      <button onclick="login()">Sign in</button>
+      <form class="form" onsubmit="return handleNext(event)">
+        <div id="stepEmail">
+          <div class="field">
+            <input id="email" class="input" type="email" placeholder=" " required value="alex@aifina.co"
+              oninput="markNotEmpty(this)" />
+            <div class="label">Email or phone</div>
+          </div>
+
+          <button type="button" class="link" onclick="alert('Demo: later')">Forgot email?</button>
+        </div>
+
+        <div id="stepPassword" style="display:none;">
+          <div class="field">
+            <input id="password" class="input" type="password" placeholder=" " required
+              oninput="markNotEmpty(this)" />
+            <div class="label">Enter your password</div>
+          </div>
+
+          <button type="button" class="link" onclick="alert('Demo: later')">Forgot password?</button>
+        </div>
+
+        <p class="hint">
+          Not your computer? Use Guest mode to sign in privately.<br />
+          <a href="#" onclick="event.preventDefault(); alert('Demo: later')">Learn more about using Guest mode</a>
+        </p>
+
+        <div class="actions">
+          <button id="leftBtn" type="button" class="ghost-btn" onclick="handleLeft()">
+            Create account
+          </button>
+
+          <button id="nextBtn" type="submit" class="primary-btn">
+            <span id="nextText">Next</span>
+            <span id="spin" class="spinner" style="display:none;"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="footer">
+      <div class="footer-row">
+        <button class="lang-btn" onclick="alert('Demo: later')">
+          English (United States)
+          <span style="font-size:14px;">▾</span>
+        </button>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <a href="#" onclick="event.preventDefault(); alert('Demo: later')">Help</a>
+          <a href="#" onclick="event.preventDefault(); alert('Demo: later')">Privacy</a>
+          <a href="#" onclick="event.preventDefault(); alert('Demo: later')">Terms</a>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- APP -->
   <div id="app">
-    <div class="sidebar">
-      <h2>AIFINA</h2>
-      <span>Reporting</span>
+    <div class="app-wrap">
+      <aside class="sidebar">
+        <div>
+          <div class="sb-brand">AIFINA</div>
+          <div id="sbUser" class="sb-sub">Demo • signed in</div>
+        </div>
 
-      <button class="nav-btn active" onclick="show('pl', this)">P&amp;L</button>
-      <button class="nav-btn" onclick="show('bs', this)">Balance Sheet</button>
-      <button class="nav-btn" onclick="show('cf', this)">Cash Flow</button>
-    </div>
+        <div class="sb-group">REPORTING</div>
+        <button class="navbtn active" onclick="showPage('pl', this)">P&amp;L</button>
+        <button class="navbtn" onclick="showPage('bs', this)">Balance Sheet</button>
+        <button class="navbtn" onclick="showPage('cf', this)">Cash Flow</button>
 
-    <div class="main">
-      <div class="topbar">
-        <h1 id="title">P&amp;L</h1>
-        <button class="logout" onclick="logout()">Log out</button>
-      </div>
+        <div class="sb-bottom">
+          <button class="logout" onclick="logout()">Log out</button>
+        </div>
+      </aside>
 
-      <div class="card">
-        <h3>Dashboard</h3>
-        <p id="content">This is the P&amp;L dashboard (demo).</p>
-      </div>
+      <main class="main">
+        <div class="topbar">
+          <h1 id="title" class="page-title">P&amp;L</h1>
+          <div class="badge">AI Insights: ON (demo)</div>
+        </div>
 
-      <div class="card">
-        <h3>AI Insights (demo)</h3>
-        <p>
-          AI-generated CFO commentary will appear here.
-        </p>
-      </div>
+        <div class="card">
+          <h3>Dashboard</h3>
+          <p id="content" class="muted">This is the P&amp;L dashboard (demo).</p>
+        </div>
+
+        <div class="card">
+          <h3>AI Insights (demo)</h3>
+          <p id="ai" class="muted">
+            This will later show AI-generated CFO commentary (variance drivers, risks, actions).
+          </p>
+        </div>
+      </main>
     </div>
   </div>
 
   <script>
-    function login() {
+    // ---------- helpers ----------
+    function markNotEmpty(el) {
+      if (el.value && el.value.trim().length > 0) el.classList.add("not-empty");
+      else el.classList.remove("not-empty");
+    }
+
+    // ---------- state ----------
+    let step = 1; // 1=email, 2=password
+    let loading = false;
+
+    // initialize float label state
+    markNotEmpty(document.getElementById("email"));
+
+    function setLoading(isLoading) {
+      loading = isLoading;
+      const btn = document.getElementById("nextBtn");
+      const spin = document.getElementById("spin");
+      const txt = document.getElementById("nextText");
+
+      btn.disabled = isLoading;
+      spin.style.display = isLoading ? "inline-block" : "none";
+      txt.style.display = isLoading ? "none" : "inline";
+    }
+
+    function handleLeft() {
+      if (step === 1) {
+        alert("Demo: Create account later");
+        return;
+      }
+      // step 2 -> go back
+      step = 1;
+      renderStep();
+    }
+
+    function handleNext(e) {
+      e.preventDefault();
+      if (loading) return false;
+
+      const email = document.getElementById("email").value.trim();
+      if (!email) return false;
+
+      if (step === 2) {
+        const pw = document.getElementById("password").value.trim();
+        if (!pw) return false;
+      }
+
+      setLoading(true);
+
+      // simulate API call
+      setTimeout(() => {
+        setLoading(false);
+
+        if (step === 1) {
+          step = 2;
+          renderStep();
+        } else {
+          loginSuccess();
+        }
+      }, 900);
+
+      return false;
+    }
+
+    function renderStep() {
+      const email = document.getElementById("email").value.trim();
+      const loginTitle = document.getElementById("loginTitle");
+      const loginSubtitle = document.getElementById("loginSubtitle");
+      const stepEmail = document.getElementById("stepEmail");
+      const stepPassword = document.getElementById("stepPassword");
+      const leftBtn = document.getElementById("leftBtn");
+
+      if (step === 1) {
+        loginTitle.textContent = "Sign in";
+        loginSubtitle.textContent = "Use your AIFINA Account";
+        stepEmail.style.display = "block";
+        stepPassword.style.display = "none";
+        leftBtn.textContent = "Create account";
+      } else {
+        loginTitle.textContent = "Welcome";
+        loginSubtitle.textContent = email || "your@email.com";
+        stepEmail.style.display = "none";
+        stepPassword.style.display = "block";
+        leftBtn.textContent = "Back";
+
+        const pw = document.getElementById("password");
+        pw.focus();
+      }
+    }
+
+    function loginSuccess() {
+      const email = document.getElementById("email").value.trim();
       document.getElementById("login").style.display = "none";
-      document.getElementById("app").style.display = "flex";
+      document.getElementById("app").style.display = "block";
+      document.getElementById("sbUser").textContent = `Demo • ${email}`;
+      // default page
+      showPage("pl", document.querySelector(".navbtn.active"));
     }
 
     function logout() {
+      // reset
       document.getElementById("app").style.display = "none";
       document.getElementById("login").style.display = "flex";
+      document.getElementById("password").value = "";
+      markNotEmpty(document.getElementById("password"));
+      step = 1;
+      renderStep();
     }
 
-    function show(type, btn) {
-      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+    function showPage(type, btn) {
+      document.querySelectorAll(".navbtn").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+
+      const title = document.getElementById("title");
+      const content = document.getElementById("content");
+      const ai = document.getElementById("ai");
 
       if (type === "pl") {
-        title.innerText = "P&L";
-        content.innerText = "This is the P&L dashboard (demo).";
+        title.textContent = "P&L";
+        content.textContent = "This is the P&L dashboard (demo).";
+        ai.textContent = "AI will explain revenue/margin drivers, abnormal OPEX, and actions for next month.";
       }
       if (type === "bs") {
-        title.innerText = "Balance Sheet";
-        content.innerText = "This is the Balance Sheet dashboard (demo).";
+        title.textContent = "Balance Sheet";
+        content.textContent = "This is the Balance Sheet dashboard (demo).";
+        ai.textContent = "AI will flag working capital movements, unusual accruals, and liquidity pressure.";
       }
       if (type === "cf") {
-        title.innerText = "Cash Flow";
-        content.innerText = "This is the Cash Flow dashboard (demo).";
+        title.textContent = "Cash Flow";
+        content.textContent = "This is the Cash Flow dashboard (demo).";
+        ai.textContent = "AI will highlight cash conversion cycle, cash burn, and treasury recommendations.";
       }
     }
   </script>
-
 </body>
 </html>
