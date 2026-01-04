@@ -3,12 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AIFINA Demo</title>
+    <title>AIFINA – Login</title>
   </head>
 
-  <body style="font-family: Arial; background:#0b1220; color:white; padding:40px;">
-    <h1>AIFINA</h1>
-    <p>Rebuilding the demo – step by step.</p>
+  <body
+    style="
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0b1220, #111b34);
+      font-family: Arial, sans-serif;
+      color: white;
+    "
+  >
+    <div
+      style="
+        width: 360px;
+        padding: 32px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      "
+    >
+      <h1 style="margin: 0 0 8px 0">AIFINA</h1>
+      <p style="margin: 0 0 24px 0; opacity: 0.8">
+        Sign in to your dashboard
+      </p>
+
+      <label style="font-size: 14px">Email</label>
+      <input
+        type="email"
+        placeholder="you@company.com"
+        style="
+          width: 100%;
+          margin-top: 6px;
+          margin-bottom: 16px;
+          padding: 10px;
+          border-radius: 8px;
+          border: none;
+          outline: none;
+        "
+      />
+
+      <label style="font-size: 14px">Password</label>
+      <input
+        type="password"
+        placeholder="••••••••"
+        style="
+          width: 100%;
+          margin-top: 6px;
+          margin-bottom: 20px;
+          padding: 10px;
+          border-radius: 8px;
+          border: none;
+          outline: none;
+        "
+      />
+
+      <button
+        style="
+          width: 100%;
+          padding: 12px;
+          border-radius: 10px;
+          border: none;
+          background: white;
+          color: #0b1220;
+          font-weight: bold;
+          cursor: pointer;
+        "
+      >
+        Sign in
+      </button>
+    </div>
   </body>
 </html>
 
