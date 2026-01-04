@@ -3,80 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AIFINA – Login</title>
+    <title>AIFINA</title>
   </head>
 
   <body
     style="
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #0b1220, #111b34);
+      background: #0b1220;
       font-family: Arial, sans-serif;
       color: white;
     "
   >
+    <!-- LOGIN SCREEN -->
     <div
+      id="login"
       style="
-        width: 360px;
-        padding: 32px;
-        background: rgba(255, 255, 255, 0.06);
-        border-radius: 16px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       "
     >
-      <h1 style="margin: 0 0 8px 0">AIFINA</h1>
-      <p style="margin: 0 0 24px 0; opacity: 0.8">
-        Sign in to your dashboard
-      </p>
-
-      <label style="font-size: 14px">Email</label>
-      <input
-        type="email"
-        placeholder="you@company.com"
+      <div
         style="
-          width: 100%;
-          margin-top: 6px;
-          margin-bottom: 16px;
-          padding: 10px;
-          border-radius: 8px;
-          border: none;
-          outline: none;
-        "
-      />
-
-      <label style="font-size: 14px">Password</label>
-      <input
-        type="password"
-        placeholder="••••••••"
-        style="
-          width: 100%;
-          margin-top: 6px;
-          margin-bottom: 20px;
-          padding: 10px;
-          border-radius: 8px;
-          border: none;
-          outline: none;
-        "
-      />
-
-      <button
-        style="
-          width: 100%;
-          padding: 12px;
-          border-radius: 10px;
-          border: none;
-          background: white;
-          color: #0b1220;
-          font-weight: bold;
-          cursor: pointer;
+          width: 360px;
+          padding: 32px;
+          background: rgba(255, 255, 255, 0.06);
+          border-radius: 16px;
         "
       >
-        Sign in
-      </button>
+        <h1 style="margin: 0 0 8px 0">AIFINA</h1>
+        <p style="margin: 0 0 24px 0; opacity: 0.8">
+          Sign in to your dashboard
+        </p>
+
+        <input
+          placeholder="Email"
+          style="width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 8px; border: none;"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          style="width: 100%; margin-bottom: 20px; padding: 10px; border-radius: 8px; border: none;"
+        />
+
+        <button
+          onclick="login()"
+          style="
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: white;
+            color: #0b1220;
+            font-weight: bold;
+            cursor: pointer;
+          "
+        >
+          Sign in
+        </button>
+      </div>
     </div>
+
+    <!-- APP SCREEN -->
+    <div id="app" style="display: none; min-height: 100vh; display: flex;">
+      <!-- SIDEBAR -->
+      <div
+        style="
+          width: 240px;
+          background: rgba(255, 255, 255, 0.04);
+          padding: 20px;
+        "
+      >
+        <h2>AIFINA</h2>
+        <p style="opacity: 0.7">Reporting</p>
+
+        <button onclick="show('pl')" style="width:100%; margin-bottom:8px;">P&amp;L</button>
+        <button onclick="show('bs')" style="width:100%; margin-bottom:8px;">Balance Sheet</button>
+        <button onclick="show('cf')" style="width:100%;">Cash Flow</button>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div style="flex: 1; padding: 32px;">
+        <h1 id="title">P&amp;L</h1>
+        <p id="content">This is the P&amp;L dashboard (demo).</p>
+      </div>
+    </div>
+
+    <script>
+      function login() {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("app").style.display = "flex";
+      }
+
+      function show(type) {
+        if (type === "pl") {
+          title.innerText = "P&L";
+          content.innerText = "This is the P&L dashboard (demo).";
+        }
+        if (type === "bs") {
+          title.innerText = "Balance Sheet";
+          content.innerText = "This is the Balance Sheet dashboard (demo).";
+        }
+        if (type === "cf") {
+          title.innerText = "Cash Flow";
+          content.innerText = "This is the Cash Flow dashboard (demo).";
+        }
+      }
+    </script>
   </body>
 </html>
-
