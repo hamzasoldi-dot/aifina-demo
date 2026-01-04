@@ -67,9 +67,7 @@
       text-align: center;
     }
 
-    .form {
-      width: 100%;
-    }
+    .form { width: 100%; }
 
     .field {
       position: relative;
@@ -182,6 +180,18 @@
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #fecaca;
+      background: #fef2f2;
+      color: #991b1b;
+      font-size: 13px;
+      display: none;
+    }
 
     .footer {
       margin-top: 18px;
@@ -299,6 +309,7 @@
       font-size: 20px;
       font-weight: 900;
       margin: 0;
+      color: #e5e7eb;
     }
     .badge {
       font-size: 12px;
@@ -316,7 +327,7 @@
       padding: 18px;
       margin-top: 14px;
     }
-    .card h3 { margin: 0 0 8px 0; }
+    .card h3 { margin: 0 0 8px 0; color: #e5e7eb; }
     .muted { opacity: 0.85; margin: 0; }
   </style>
 </head>
@@ -328,7 +339,6 @@
     <div class="login-card">
       <div class="brand-wrap">
         <div class="logo-circle" aria-hidden="true">
-          <!-- simple sparkle-like icon -->
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <path d="M12 2l1.6 6.2L20 12l-6.4 3.8L12 22l-1.6-6.2L4 12l6.4-3.8L12 2z" stroke="#1a73e8" stroke-width="1.6" />
           </svg>
@@ -345,7 +355,7 @@
         <div id="stepEmail">
           <div class="field">
             <input id="email" class="input" type="email" placeholder=" " required value="alex@aifina.co"
-              oninput="markNotEmpty(this)" />
+              oninput="markNotEmpty(this); clearError();" />
             <div class="label">Email or phone</div>
           </div>
 
@@ -355,12 +365,14 @@
         <div id="stepPassword" style="display:none;">
           <div class="field">
             <input id="password" class="input" type="password" placeholder=" " required
-              oninput="markNotEmpty(this)" />
+              oninput="markNotEmpty(this); clearError();" />
             <div class="label">Enter your password</div>
           </div>
 
           <button type="button" class="link" onclick="alert('Demo: later')">Forgot password?</button>
         </div>
+
+        <div id="errBox" class="error"></div>
 
         <p class="hint">
           Not your computer? Use Guest mode to sign in privately.<br />
@@ -377,6 +389,10 @@
             <span id="spin" class="spinner" style="display:none;"></span>
           </button>
         </div>
+
+        <p style="margin:14px 0 0 0; font-size:12px; color:#6b7280;">
+          Demo password: <b>1234</b>
+        </p>
       </form>
     </div>
 
@@ -437,10 +453,27 @@
   </div>
 
   <script>
+    // ---------- Demo Auth Settings ----------
+    // Only for demo. You can change these anytime.
+    const DEMO_PASSWORD = "1234";
+    const SESSION_KEY = "aifina_demo_session_v1";
+
     // ---------- helpers ----------
     function markNotEmpty(el) {
       if (el.value && el.value.trim().length > 0) el.classList.add("not-empty");
       else el.classList.remove("not-empty");
+    }
+
+    function showError(msg) {
+      const box = document.getElementById("errBox");
+      box.textContent = msg;
+      box.style.display = "block";
+    }
+
+    function clearError() {
+      const box = document.getElementById("errBox");
+      box.textContent = "";
+      box.style.display = "none";
     }
 
     // ---------- state ----------
@@ -462,11 +495,11 @@
     }
 
     function handleLeft() {
+      clearError();
       if (step === 1) {
         alert("Demo: Create account later");
         return;
       }
-      // step 2 -> go back
       step = 1;
       renderStep();
     }
@@ -475,11 +508,13 @@
       e.preventDefault();
       if (loading) return false;
 
+      clearError();
+
       const email = document.getElementById("email").value.trim();
       if (!email) return false;
 
       if (step === 2) {
-        const pw = document.getElementById("password").value.trim();
+        const pw = document.getElementById("password").value;
         if (!pw) return false;
       }
 
@@ -493,14 +528,16 @@
           step = 2;
           renderStep();
         } else {
-          loginSuccess();
+          demoAuth();
         }
-      }, 900);
+      }, 700);
 
       return false;
     }
 
     function renderStep() {
+      clearError();
+
       const email = document.getElementById("email").value.trim();
       const loginTitle = document.getElementById("loginTitle");
       const loginSubtitle = document.getElementById("loginSubtitle");
@@ -526,21 +563,49 @@
       }
     }
 
-    function loginSuccess() {
+    function demoAuth() {
       const email = document.getElementById("email").value.trim();
+      const pw = document.getElementById("password").value;
+
+      // simple demo validation
+      if (pw !== DEMO_PASSWORD) {
+        showError("Invalid credentials. Please try again.");
+        return;
+      }
+
+      // Create a fake session object like a real API response
+      const session = {
+        token: "demo-token-" + Math.random().toString(16).slice(2),
+        user: {
+          email,
+          name: email.split("@")[0]?.replace(".", " ") || "User"
+        },
+        createdAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+      loginSuccess(session);
+    }
+
+    function loginSuccess(session) {
       document.getElementById("login").style.display = "none";
       document.getElementById("app").style.display = "block";
-      document.getElementById("sbUser").textContent = `Demo • ${email}`;
+      document.getElementById("sbUser").textContent = `Demo • ${session.user.email}`;
+
       // default page
-      showPage("pl", document.querySelector(".navbtn.active"));
+      const active = document.querySelector(".navbtn.active");
+      showPage("pl", active);
     }
 
     function logout() {
-      // reset
+      localStorage.removeItem(SESSION_KEY);
+
       document.getElementById("app").style.display = "none";
       document.getElementById("login").style.display = "flex";
+
       document.getElementById("password").value = "";
       markNotEmpty(document.getElementById("password"));
+
       step = 1;
       renderStep();
     }
@@ -569,6 +634,25 @@
         ai.textContent = "AI will highlight cash conversion cycle, cash burn, and treasury recommendations.";
       }
     }
+
+    // ---------- Auto-login if session exists ----------
+    (function boot() {
+      try {
+        const raw = localStorage.getItem(SESSION_KEY);
+        if (!raw) return;
+
+        const session = JSON.parse(raw);
+        if (session && session.user && session.user.email) {
+          // keep email filled for realism
+          document.getElementById("email").value = session.user.email;
+          markNotEmpty(document.getElementById("email"));
+          loginSuccess(session);
+        }
+      } catch (e) {
+        // if corrupted, clear it
+        localStorage.removeItem(SESSION_KEY);
+      }
+    })();
   </script>
 </body>
 </html>
