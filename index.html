@@ -1,116 +1,203 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AIFINA</title>
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIFINA Demo</title>
 
-  <body
-    style="
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
       margin: 0;
-      min-height: 100vh;
-      background: #0b1220;
       font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0b1220, #111b34);
+      color: #ffffff;
+    }
+
+    /* LOGIN */
+    #login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-card {
+      width: 360px;
+      padding: 32px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .login-card h1 { margin: 0 0 8px 0; }
+    .login-card p { margin: 0 0 24px 0; opacity: 0.8; }
+
+    .login-card input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 14px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+    }
+
+    .login-card button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      background: #ffffff;
+      color: #0b1220;
+    }
+
+    /* APP */
+    #app {
+      display: none;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sidebar h2 { margin: 0 0 4px 0; }
+    .sidebar span { font-size: 12px; opacity: 0.7; }
+
+    .nav-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
       color: white;
-    "
-  >
-    <!-- LOGIN SCREEN -->
-    <div
-      id="login"
-      style="
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      "
-    >
-      <div
-        style="
-          width: 360px;
-          padding: 32px;
-          background: rgba(255, 255, 255, 0.06);
-          border-radius: 16px;
-        "
-      >
-        <h1 style="margin: 0 0 8px 0">AIFINA</h1>
-        <p style="margin: 0 0 24px 0; opacity: 0.8">
-          Sign in to your dashboard
-        </p>
+      cursor: pointer;
+      text-align: left;
+      font-weight: 600;
+    }
 
-        <input
-          placeholder="Email"
-          style="width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 8px; border: none;"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          style="width: 100%; margin-bottom: 20px; padding: 10px; border-radius: 8px; border: none;"
-        />
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: rgba(255,255,255,0.15);
+    }
 
-        <button
-          onclick="login()"
-          style="
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background: white;
-            color: #0b1220;
-            font-weight: bold;
-            cursor: pointer;
-          "
-        >
-          Sign in
-        </button>
-      </div>
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 32px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .logout {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 { margin: 0 0 8px 0; }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div id="login">
+    <div class="login-card">
+      <h1>AIFINA</h1>
+      <p>Sign in to your dashboard</p>
+
+      <input placeholder="Email" />
+      <input type="password" placeholder="Password" />
+
+      <button onclick="login()">Sign in</button>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app">
+    <div class="sidebar">
+      <h2>AIFINA</h2>
+      <span>Reporting</span>
+
+      <button class="nav-btn active" onclick="show('pl', this)">P&amp;L</button>
+      <button class="nav-btn" onclick="show('bs', this)">Balance Sheet</button>
+      <button class="nav-btn" onclick="show('cf', this)">Cash Flow</button>
     </div>
 
-    <!-- APP SCREEN -->
-    <div id="app" style="display: none; min-height: 100vh; display: flex;">
-      <!-- SIDEBAR -->
-      <div
-        style="
-          width: 240px;
-          background: rgba(255, 255, 255, 0.04);
-          padding: 20px;
-        "
-      >
-        <h2>AIFINA</h2>
-        <p style="opacity: 0.7">Reporting</p>
-
-        <button onclick="show('pl')" style="width:100%; margin-bottom:8px;">P&amp;L</button>
-        <button onclick="show('bs')" style="width:100%; margin-bottom:8px;">Balance Sheet</button>
-        <button onclick="show('cf')" style="width:100%;">Cash Flow</button>
+    <div class="main">
+      <div class="topbar">
+        <h1 id="title">P&amp;L</h1>
+        <button class="logout" onclick="logout()">Log out</button>
       </div>
 
-      <!-- MAIN CONTENT -->
-      <div style="flex: 1; padding: 32px;">
-        <h1 id="title">P&amp;L</h1>
+      <div class="card">
+        <h3>Dashboard</h3>
         <p id="content">This is the P&amp;L dashboard (demo).</p>
       </div>
+
+      <div class="card">
+        <h3>AI Insights (demo)</h3>
+        <p>
+          AI-generated CFO commentary will appear here.
+        </p>
+      </div>
     </div>
+  </div>
 
-    <script>
-      function login() {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("app").style.display = "flex";
-      }
+  <script>
+    function login() {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("app").style.display = "flex";
+    }
 
-      function show(type) {
-        if (type === "pl") {
-          title.innerText = "P&L";
-          content.innerText = "This is the P&L dashboard (demo).";
-        }
-        if (type === "bs") {
-          title.innerText = "Balance Sheet";
-          content.innerText = "This is the Balance Sheet dashboard (demo).";
-        }
-        if (type === "cf") {
-          title.innerText = "Cash Flow";
-          content.innerText = "This is the Cash Flow dashboard (demo).";
-        }
+    function logout() {
+      document.getElementById("app").style.display = "none";
+      document.getElementById("login").style.display = "flex";
+    }
+
+    function show(type, btn) {
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      if (type === "pl") {
+        title.innerText = "P&L";
+        content.innerText = "This is the P&L dashboard (demo).";
       }
-    </script>
-  </body>
+      if (type === "bs") {
+        title.innerText = "Balance Sheet";
+        content.innerText = "This is the Balance Sheet dashboard (demo).";
+      }
+      if (type === "cf") {
+        title.innerText = "Cash Flow";
+        content.innerText = "This is the Cash Flow dashboard (demo).";
+      }
+    }
+  </script>
+
+</body>
 </html>
