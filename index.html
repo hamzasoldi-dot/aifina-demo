@@ -4,276 +4,236 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AIFINA Demo</title>
-
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, sans-serif; color: #111827; background: #ffffff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:#fff;color:#111827}
 
     /* LOGIN */
-    #login {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      background: #ffffff;
+    #login{
+      min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:16px;background:#fff
     }
-
-    .login-card {
-      width: 100%;
-      max-width: 448px;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 28px 24px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .login-card{
+      width:100%;max-width:448px;border:1px solid #e5e7eb;border-radius:10px;
+      padding:28px 24px;box-shadow:0 1px 2px rgba(0,0,0,.04);
+      display:flex;flex-direction:column;align-items:center
     }
-
-    .brand-wrap { margin-bottom: 18px; text-align: center; }
-    .logo-circle {
-      width: 48px; height: 48px;
-      border: 1px solid #f3f4f6;
-      border-radius: 999px;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-      margin: 0 auto 8px auto;
-      background: #fff;
+    .brand-wrap{text-align:center;margin-bottom:18px}
+    .logo-circle{
+      width:48px;height:48px;border-radius:999px;border:1px solid #f3f4f6;background:#fff;
+      display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(0,0,0,.06);
+      margin:0 auto 8px auto
     }
-    .brand-name { font-size: 20px; font-weight: 500; letter-spacing: -0.2px; color: #374151; }
+    .brand-name{font-size:20px;font-weight:500;color:#374151}
+    .login-title{font-size:24px;font-weight:400;margin:0 0 6px 0;text-align:center}
+    .login-subtitle{font-size:16px;color:#6b7280;margin:0 0 18px 0;text-align:center}
 
-    .login-title { font-size: 24px; font-weight: 400; margin: 0 0 6px 0; color: #111827; text-align: center; }
-    .login-subtitle { font-size: 16px; color: #6b7280; margin: 0 0 20px 0; text-align: center; }
-
-    .form { width: 100%; }
-
-    .field { position: relative; width: 100%; margin-bottom: 10px; }
-    .input {
-      width: 100%;
-      padding: 14px 14px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #d1d5db;
-      outline: none;
-      background: #fff;
+    .field{position:relative;width:100%;margin-bottom:12px}
+    .input{
+      width:100%;padding:14px;font-size:16px;border-radius:6px;border:1px solid #d1d5db;outline:none;background:#fff
     }
-    .input:focus { border-color: #1a73e8; box-shadow: 0 0 0 1px #1a73e8; }
+    .input:focus{border-color:#1a73e8;box-shadow:0 0 0 1px #1a73e8}
 
-    .label {
-      position: absolute;
-      left: 14px;
-      top: 14px;
-      color: #6b7280;
-      font-size: 16px;
-      pointer-events: none;
-      transition: all 0.15s ease;
-      background: #fff;
+    .row{width:100%;display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}
+    .ghost-btn{
+      border:none;background:transparent;color:#1a73e8;font-weight:700;font-size:13px;
+      padding:10px 12px;border-radius:8px;cursor:pointer
     }
-    .input:focus + .label,
-    .input.not-empty + .label {
-      top: -8px;
-      left: 10px;
-      font-size: 12px;
-      color: #1a73e8;
-      padding: 0 6px;
+    .ghost-btn:hover{background:#eef6ff}
+
+    .primary-btn{
+      background:#1a73e8;color:#fff;border:none;border-radius:6px;padding:10px 18px;
+      font-size:13px;font-weight:700;cursor:pointer;min-width:88px
     }
+    .primary-btn:hover{background:#1b66c9}
 
-    .link {
-      appearance: none;
-      border: none;
-      background: transparent;
-      color: #1a73e8;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 0;
-      cursor: pointer;
+    .status{
+      width:100%;margin-top:12px;padding:10px 12px;border-radius:8px;
+      border:1px solid #dbeafe;background:#eff6ff;color:#1e40af;font-size:12px;white-space:pre-wrap
     }
-    .link:hover { color: #165fc1; }
-
-    .actions { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
-
-    .ghost-btn {
-      border: none;
-      background: transparent;
-      color: #1a73e8;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .ghost-btn:hover { background: #eef6ff; }
-
-    .primary-btn {
-      background: #1a73e8;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 18px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      min-width: 88px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.15s ease;
-    }
-    .primary-btn:hover { background: #1b66c9; box-shadow: 0 6px 14px rgba(26,115,232,0.18); }
-    .primary-btn:disabled { opacity: 0.7; cursor: not-allowed; box-shadow: none; }
-
-    .spinner {
-      width: 16px; height: 16px;
-      border-radius: 999px;
-      border: 2px solid rgba(255,255,255,0.45);
-      border-top-color: #fff;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .error {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1px solid #fecaca;
-      background: #fef2f2;
-      color: #991b1b;
-      font-size: 13px;
-      display: none;
-    }
-
-    .debug {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1px solid #dbeafe;
-      background: #eff6ff;
-      color: #1e40af;
-      font-size: 12px;
-      display: block;
-      white-space: pre-wrap;
+    .error{
+      width:100%;margin-top:10px;padding:10px 12px;border-radius:8px;
+      border:1px solid #fecaca;background:#fef2f2;color:#991b1b;font-size:13px;display:none
     }
 
     /* APP */
-    #app { display: none; min-height: 100vh; background: #0b1220; color: #e5e7eb; }
-    .app-wrap { display: flex; min-height: 100vh; }
+    #app{display:none;min-height:100vh;background:#0b1220;color:#e5e7eb}
+    .app-wrap{display:flex;min-height:100vh}
 
-    .sidebar {
-      width: 300px;
-      background: #0b1220;
-      border-right: 1px solid rgba(255,255,255,0.10);
-      padding: 14px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .sidebar{
+      width:300px;background:#0b1220;border-right:1px solid rgba(255,255,255,.1);
+      padding:14px 12px;display:flex;flex-direction:column;gap:10px
     }
-
-    .sb-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 10px;
-      border-radius: 12px;
+    .sb-header{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px}
+    .sb-logo{
+      width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.08);
+      display:grid;place-items:center;font-weight:900;font-size:12px
     }
+    .sb-title{font-weight:900}
+    .sb-user{margin-left:auto;font-size:12px;opacity:.75}
 
-    .sb-logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.08);
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      color: #e5e7eb;
-      font-size: 12px;
+    .tree{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+    .tree-group{border-radius:12px;overflow:hidden}
+    .tree-toggle{
+      width:100%;display:flex;align-items:center;gap:10px;padding:10px;border:none;background:transparent;
+      color:#e5e7eb;cursor:pointer;font-weight:800;border-radius:12px
     }
+    .tree-toggle:hover{background:rgba(255,255,255,.06)}
+    .tree-chevron{margin-left:auto;opacity:.7;transition:transform .15s ease}
+    .tree-group[data-open="true"] .tree-chevron{transform:rotate(180deg)}
+    .tree-children{display:none;padding:4px 0 8px 0}
+    .tree-group[data-open="true"] .tree-children{display:block}
 
-    .sb-title { font-weight: 900; letter-spacing: 0.3px; color: #e5e7eb; }
-    .sb-user { margin-left: auto; font-size: 12px; opacity: 0.75; }
-
-    .tree { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-    .tree-group { border-radius: 12px; overflow: hidden; }
-
-    .tree-toggle {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 10px;
-      border: none;
-      background: transparent;
-      color: #e5e7eb;
-      cursor: pointer;
-      font-weight: 800;
-      border-radius: 12px;
+    .tree-item{
+      padding:9px 10px 9px 34px;margin:2px 6px;border-radius:10px;color:rgba(229,231,235,.88);
+      cursor:pointer;font-weight:700;border:1px solid transparent
     }
-    .tree-toggle:hover { background: rgba(255,255,255,0.06); }
+    .tree-item:hover{background:rgba(255,255,255,.06)}
+    .tree-item.active{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.10);color:#fff}
+    .tree-subitem{padding-left:56px;font-weight:650}
 
-    .tree-icon { width: 18px; opacity: 0.9; text-align: center; }
-    .tree-chevron { margin-left: auto; opacity: 0.7; transition: transform 0.15s ease; }
-    .tree-group[data-open="true"] .tree-chevron { transform: rotate(180deg); }
-
-    .tree-children { display: none; padding: 4px 0 8px 0; }
-    .tree-group[data-open="true"] .tree-children { display: block; }
-
-    .tree-item {
-      padding: 9px 10px 9px 34px;
-      margin: 2px 6px;
-      border-radius: 10px;
-      color: rgba(229,231,235,0.88);
-      cursor: pointer;
-      font-weight: 700;
-      border: 1px solid transparent;
+    .sb-bottom{margin-top:auto;padding-top:10px}
+    .logout{
+      width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      background:transparent;color:#e5e7eb;cursor:pointer;font-weight:800
     }
-    .tree-item:hover { background: rgba(255,255,255,0.06); }
-    .tree-item.active { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.10); color: #ffffff; }
-    .tree-subitem { padding-left: 56px; font-weight: 650; opacity: 0.95; }
+    .logout:hover{background:rgba(255,255,255,.08)}
 
-    .sb-bottom { margin-top: auto; padding-top: 10px; }
-    .logout {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: transparent;
-      color: #e5e7eb;
-      cursor: pointer;
-      font-weight: 800;
-    }
-    .logout:hover { background: rgba(255,255,255,0.08); }
-
-    .main { flex: 1; padding: 26px; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .page-title { font-size: 20px; font-weight: 900; margin: 0; color: #e5e7eb; }
-    .badge {
-      font-size: 12px; padding: 8px 10px; border-radius: 999px;
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.10);
-      opacity: 0.95; white-space: nowrap;
-    }
-    .card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 18px;
-      padding: 18px;
-      margin-top: 14px;
-    }
-    .card h3 { margin: 0 0 8px 0; color: #e5e7eb; }
-    .muted { opacity: 0.85; margin: 0; }
+    .main{flex:1;padding:26px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+    .page-title{font-size:20px;font-weight:900;margin:0}
+    .badge{font-size:12px;padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10)}
+    .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:18px;margin-top:14px}
+    .card h3{margin:0 0 8px 0}
+    .muted{opacity:.85;margin:0}
   </style>
+
+  <!-- IMPORTANT: script here so it's loaded before clicks -->
+  <script>
+    let step = 1; // 1=email, 2=password
+    const DEMO_PASSWORD = "1234";
+
+    function setStatus(msg){
+      const el = document.getElementById("status");
+      if (el) el.textContent = "STATUS: " + msg;
+      console.log("STATUS:", msg);
+    }
+
+    function showError(msg){
+      const e = document.getElementById("errBox");
+      e.style.display = "block";
+      e.textContent = msg;
+    }
+    function clearError(){
+      const e = document.getElementById("errBox");
+      e.style.display = "none";
+      e.textContent = "";
+    }
+
+    function nextClicked(){
+      clearError();
+      setStatus("Next clicked ✅ step=" + step);
+
+      const email = document.getElementById("email").value.trim();
+      if(!email){
+        showError("Please enter email.");
+        setStatus("Missing email");
+        return;
+      }
+
+      if(step === 1){
+        step = 2;
+        document.getElementById("loginTitle").textContent = "Welcome";
+        document.getElementById("loginSubtitle").textContent = email;
+        document.getElementById("stepEmail").style.display = "none";
+        document.getElementById("stepPassword").style.display = "block";
+        document.getElementById("leftBtn").textContent = "Back";
+        document.getElementById("password").focus();
+        setStatus("Moved to password step ✅");
+        return;
+      }
+
+      // step 2: check password
+      const pw = document.getElementById("password").value;
+      if(pw !== DEMO_PASSWORD){
+        showError("Wrong password. Type 1234.");
+        setStatus("Wrong password ❌");
+        return;
+      }
+
+      // success
+      document.getElementById("login").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      document.getElementById("sbUser").textContent = email;
+      setStatus("Logged in ✅ showing app");
+    }
+
+    function leftClicked(){
+      clearError();
+      if(step === 1){
+        alert("Demo: Create account later");
+        setStatus("Create account clicked (demo)");
+        return;
+      }
+      step = 1;
+      document.getElementById("loginTitle").textContent = "Sign in";
+      document.getElementById("loginSubtitle").textContent = "Use your AIFINA Account";
+      document.getElementById("stepEmail").style.display = "block";
+      document.getElementById("stepPassword").style.display = "none";
+      document.getElementById("leftBtn").textContent = "Create account";
+      setStatus("Back to email step ✅");
+    }
+
+    function logout(){
+      document.getElementById("app").style.display = "none";
+      document.getElementById("login").style.display = "flex";
+      document.getElementById("password").value = "";
+      step = 1;
+      leftClicked(); // resets UI
+      setStatus("Logged out ✅");
+    }
+
+    function toggleGroup(btn){
+      const group = btn.closest(".tree-group");
+      const isOpen = group.getAttribute("data-open") === "true";
+      group.setAttribute("data-open", isOpen ? "false" : "true");
+    }
+
+    function setActiveItem(el){
+      document.querySelectorAll(".tree-item").forEach(x => x.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    function goPage(key, el){
+      setActiveItem(el);
+      const title = document.getElementById("title");
+      const content = document.getElementById("content");
+      const ai = document.getElementById("ai");
+
+      const map = {
+        pl: ["P&L Summary","This is the P&L summary dashboard (demo).","AI: explain revenue/margin drivers + actions."],
+        bs: ["Balance Sheet Summary","This is the balance sheet summary dashboard (demo).","AI: working capital + liquidity insights."],
+        cf: ["Cash Flow Summary","This is the cash flow summary dashboard (demo).","AI: cash drivers + treasury actions."],
+      };
+
+      const v = map[key] || ["Dashboard","Demo page.","AI demo."];
+      title.textContent = v[0];
+      content.textContent = v[1];
+      ai.textContent = v[2];
+    }
+
+    window.addEventListener("load", () => {
+      setStatus("Page loaded ✅ (JS running)");
+    });
+  </script>
 </head>
 
 <body>
-
   <!-- LOGIN -->
   <div id="login">
     <div class="login-card">
       <div class="brand-wrap">
-        <div class="logo-circle" aria-hidden="true">
+        <div class="logo-circle">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <path d="M12 2l1.6 6.2L20 12l-6.4 3.8L12 22l-1.6-6.2L4 12l6.4-3.8L12 2z" stroke="#1a73e8" stroke-width="1.6" />
           </svg>
@@ -286,38 +246,33 @@
         <p id="loginSubtitle" class="login-subtitle">Use your AIFINA Account</p>
       </div>
 
-      <form class="form" id="loginForm">
+      <div style="width:100%">
         <div id="stepEmail">
           <div class="field">
-            <input id="email" class="input" type="email" placeholder=" " required value="alex@aifina.co" />
-            <div class="label">Email or phone</div>
+            <input id="email" class="input" type="email" value="alex@aifina.co" required />
           </div>
-          <button type="button" class="link" onclick="alert('Demo: later')">Forgot email?</button>
+          <button class="ghost-btn" type="button" onclick="alert('Demo: later')">Forgot email?</button>
         </div>
 
         <div id="stepPassword" style="display:none;">
           <div class="field">
-            <input id="password" class="input" type="password" placeholder=" " required />
-            <div class="label">Enter your password</div>
+            <input id="password" class="input" type="password" required />
           </div>
-          <button type="button" class="link" onclick="alert('Demo: later')">Forgot password?</button>
+          <button class="ghost-btn" type="button" onclick="alert('Demo: later')">Forgot password?</button>
         </div>
 
         <div id="errBox" class="error"></div>
-        <div id="dbg" class="debug">Debug: page loaded ✅</div>
+        <div id="status" class="status">STATUS: (loading…)</div>
 
-        <div class="actions">
-          <button id="leftBtn" type="button" class="ghost-btn">Create account</button>
-          <button id="nextBtn" type="submit" class="primary-btn">
-            <span id="nextText">Next</span>
-            <span id="spin" class="spinner" style="display:none;"></span>
-          </button>
+        <div class="row">
+          <button id="leftBtn" class="ghost-btn" type="button" onclick="leftClicked()">Create account</button>
+          <button class="primary-btn" type="button" onclick="nextClicked()">Next</button>
         </div>
 
         <p style="margin:14px 0 0 0; font-size:12px; color:#6b7280;">
           Demo password: <b>1234</b>
         </p>
-      </form>
+      </div>
     </div>
   </div>
 
@@ -334,64 +289,21 @@
         <div class="tree">
           <div class="tree-group" data-open="true">
             <button class="tree-toggle" type="button" onclick="toggleGroup(this)">
-              <span class="tree-icon">📊</span>
-              <span>Reporting</span>
-              <span class="tree-chevron">▾</span>
+              <span>📊</span><span>Reporting</span><span class="tree-chevron">▾</span>
             </button>
 
             <div class="tree-children">
-
-              <div class="tree-group" data-open="true" style="margin: 0 6px;">
-                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px 10px;">
-                  <span class="tree-icon">🏠</span>
-                  <span>General Summary</span>
-                  <span class="tree-chevron">▾</span>
+              <div class="tree-group" data-open="true" style="margin:0 6px;">
+                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px">
+                  <span>🏠</span><span>General Summary</span><span class="tree-chevron">▾</span>
                 </button>
 
                 <div class="tree-children">
                   <div class="tree-item active" onclick="goPage('pl', this)">P&amp;L Summary</div>
                   <div class="tree-item" onclick="goPage('bs', this)">Balance Sheet Summary</div>
                   <div class="tree-item" onclick="goPage('cf', this)">Cash Flow Summary</div>
-                  <div class="tree-item tree-subitem" onclick="goPage('notes', this)">Notes to the consolidated financial statements</div>
                 </div>
               </div>
-
-              <div class="tree-group" data-open="false" style="margin: 0 6px;">
-                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px 10px;">
-                  <span class="tree-icon">📄</span>
-                  <span>Balance Sheet</span>
-                  <span class="tree-chevron">▾</span>
-                </button>
-                <div class="tree-children">
-                  <div class="tree-item" onclick="goPage('bs-exec', this)">Executive Summary</div>
-                  <div class="tree-item" onclick="goPage('bs-stmt', this)">Statements</div>
-                </div>
-              </div>
-
-              <div class="tree-group" data-open="false" style="margin: 0 6px;">
-                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px 10px;">
-                  <span class="tree-icon">💹</span>
-                  <span>Profit &amp; Loss</span>
-                  <span class="tree-chevron">▾</span>
-                </button>
-                <div class="tree-children">
-                  <div class="tree-item" onclick="goPage('pl-exec', this)">Executive Summary</div>
-                  <div class="tree-item" onclick="goPage('pl-detail', this)">Profit &amp; Loss Detailed Report</div>
-                </div>
-              </div>
-
-              <div class="tree-group" data-open="false" style="margin: 0 6px;">
-                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px 10px;">
-                  <span class="tree-icon">💵</span>
-                  <span>Cash Flow</span>
-                  <span class="tree-chevron">▾</span>
-                </button>
-                <div class="tree-children">
-                  <div class="tree-item" onclick="goPage('cf-exec', this)">Executive Summary</div>
-                  <div class="tree-item" onclick="goPage('cf-stmt', this)">Statements</div>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
@@ -419,169 +331,5 @@
       </main>
     </div>
   </div>
-
-  <script>
-    const DEMO_PASSWORD = "1234";
-
-    const dbg = (msg) => {
-      const d = document.getElementById("dbg");
-      d.textContent = "Debug: " + msg;
-      console.log(msg);
-    };
-
-    const markNotEmpty = (el) => {
-      if (el.value && el.value.trim().length > 0) el.classList.add("not-empty");
-      else el.classList.remove("not-empty");
-    };
-
-    const showError = (msg) => {
-      const box = document.getElementById("errBox");
-      box.textContent = msg;
-      box.style.display = "block";
-    };
-
-    const clearError = () => {
-      const box = document.getElementById("errBox");
-      box.textContent = "";
-      box.style.display = "none";
-    };
-
-    let step = 1;
-    let loading = false;
-
-    const setLoading = (isLoading) => {
-      loading = isLoading;
-      document.getElementById("nextBtn").disabled = isLoading;
-      document.getElementById("spin").style.display = isLoading ? "inline-block" : "none";
-      document.getElementById("nextText").style.display = isLoading ? "none" : "inline";
-    };
-
-    const renderStep = () => {
-      clearError();
-      const email = document.getElementById("email").value.trim();
-
-      if (step === 1) {
-        document.getElementById("loginTitle").textContent = "Sign in";
-        document.getElementById("loginSubtitle").textContent = "Use your AIFINA Account";
-        document.getElementById("stepEmail").style.display = "block";
-        document.getElementById("stepPassword").style.display = "none";
-        document.getElementById("leftBtn").textContent = "Create account";
-        dbg("Step 1 (email)");
-      } else {
-        document.getElementById("loginTitle").textContent = "Welcome";
-        document.getElementById("loginSubtitle").textContent = email || "your@email.com";
-        document.getElementById("stepEmail").style.display = "none";
-        document.getElementById("stepPassword").style.display = "block";
-        document.getElementById("leftBtn").textContent = "Back";
-        document.getElementById("password").focus();
-        dbg("Step 2 (password)");
-      }
-    };
-
-    const demoAuth = () => {
-      const email = document.getElementById("email").value.trim();
-      const pw = document.getElementById("password").value;
-
-      if (pw !== DEMO_PASSWORD) {
-        showError("Invalid credentials. Please type 1234.");
-        dbg("Wrong password entered");
-        return;
-      }
-
-      dbg("Login success ✅ switching to app");
-      document.getElementById("login").style.display = "none";
-      document.getElementById("app").style.display = "block";
-      document.getElementById("sbUser").textContent = email;
-
-      goPage("pl", document.querySelector(".tree-item.active"));
-    };
-
-    // Handle form submit safely
-    document.getElementById("loginForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (loading) return;
-
-      const email = document.getElementById("email").value.trim();
-      if (!email) return;
-
-      setLoading(true);
-
-      setTimeout(() => {
-        setLoading(false);
-
-        if (step === 1) {
-          step = 2;
-          renderStep();
-        } else {
-          demoAuth();
-        }
-      }, 300);
-    });
-
-    // Left button behavior
-    document.getElementById("leftBtn").addEventListener("click", () => {
-      clearError();
-      if (step === 1) {
-        alert("Demo: Create account later");
-        return;
-      }
-      step = 1;
-      renderStep();
-    });
-
-    // Input float labels
-    const emailEl = document.getElementById("email");
-    const passEl = document.getElementById("password");
-
-    emailEl.addEventListener("input", () => { markNotEmpty(emailEl); clearError(); });
-    passEl.addEventListener("input", () => { markNotEmpty(passEl); clearError(); });
-
-    markNotEmpty(emailEl);
-
-    // Sidebar
-    function toggleGroup(btn) {
-      const group = btn.closest(".tree-group");
-      const isOpen = group.getAttribute("data-open") === "true";
-      group.setAttribute("data-open", isOpen ? "false" : "true");
-    }
-
-    function setActiveItem(el) {
-      document.querySelectorAll(".tree-item").forEach(x => x.classList.remove("active"));
-      if (el) el.classList.add("active");
-    }
-
-    function goPage(pageKey, el) {
-      if (el) setActiveItem(el);
-
-      const title = document.getElementById("title");
-      const content = document.getElementById("content");
-      const ai = document.getElementById("ai");
-
-      const map = {
-        "pl": ["P&L Summary", "This is the P&L summary dashboard (demo).", "AI: explain revenue/margin drivers + actions."],
-        "bs": ["Balance Sheet Summary", "This is the balance sheet summary dashboard (demo).", "AI: highlight WC movements, accruals, liquidity."],
-        "cf": ["Cash Flow Summary", "This is the cash flow summary dashboard (demo).", "AI: cash burn, CCC, treasury actions."],
-        "notes": ["Notes", "Notes to consolidated financial statements (demo).", "AI: help draft explanations and variances."]
-      };
-
-      const [t, c, a] = map[pageKey] || ["Dashboard", "Demo page.", "AI demo."];
-      title.textContent = t;
-      content.textContent = c;
-      ai.textContent = a;
-    }
-
-    function logout() {
-      document.getElementById("app").style.display = "none";
-      document.getElementById("login").style.display = "flex";
-      document.getElementById("password").value = "";
-      markNotEmpty(document.getElementById("password"));
-      step = 1;
-      renderStep();
-      dbg("Logged out");
-    }
-
-    // Start
-    renderStep();
-  </script>
 </body>
 </html>
