@@ -7,12 +7,7 @@
 
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: #111827;
-      background: #ffffff;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; color: #111827; background: #ffffff; }
 
     /* ---------- LOGIN (Gemini/Google-like) ---------- */
     #login {
@@ -22,6 +17,7 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
+      background: #ffffff;
     }
 
     .login-card {
@@ -53,27 +49,12 @@
       color: #374151;
     }
 
-    .login-title {
-      font-size: 24px;
-      font-weight: 400;
-      margin: 0 0 6px 0;
-      color: #111827;
-      text-align: center;
-    }
-    .login-subtitle {
-      font-size: 16px;
-      color: #6b7280;
-      margin: 0 0 20px 0;
-      text-align: center;
-    }
+    .login-title { font-size: 24px; font-weight: 400; margin: 0 0 6px 0; color: #111827; text-align: center; }
+    .login-subtitle { font-size: 16px; color: #6b7280; margin: 0 0 20px 0; text-align: center; }
 
     .form { width: 100%; }
 
-    .field {
-      position: relative;
-      width: 100%;
-      margin-bottom: 10px;
-    }
+    .field { position: relative; width: 100%; margin-bottom: 10px; }
     .input {
       width: 100%;
       padding: 14px 14px;
@@ -83,10 +64,7 @@
       outline: none;
       background: #fff;
     }
-    .input:focus {
-      border-color: #1a73e8;
-      box-shadow: 0 0 0 1px #1a73e8;
-    }
+    .input:focus { border-color: #1a73e8; box-shadow: 0 0 0 1px #1a73e8; }
 
     .label {
       position: absolute;
@@ -98,8 +76,6 @@
       transition: all 0.15s ease;
       background: #fff;
     }
-
-    /* float label */
     .input:focus + .label,
     .input.not-empty + .label {
       top: -8px;
@@ -121,25 +97,11 @@
     }
     .link:hover { color: #165fc1; }
 
-    .hint {
-      font-size: 13px;
-      color: #6b7280;
-      line-height: 1.45;
-      margin: 12px 0 0 0;
-    }
-    .hint a {
-      color: #1a73e8;
-      font-weight: 700;
-      text-decoration: none;
-    }
+    .hint { font-size: 13px; color: #6b7280; line-height: 1.45; margin: 12px 0 0 0; }
+    .hint a { color: #1a73e8; font-weight: 700; text-decoration: none; }
     .hint a:hover { text-decoration: underline; }
 
-    .actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 18px;
-    }
+    .actions { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
 
     .ghost-btn {
       border: none;
@@ -224,64 +186,104 @@
       gap: 8px;
     }
     .lang-btn:hover { background: #f3f4f6; }
-    .footer a {
-      color: #6b7280;
-      text-decoration: none;
-    }
+    .footer a { color: #6b7280; text-decoration: none; }
     .footer a:hover { text-decoration: underline; }
 
-    /* ---------- APP SHELL ---------- */
-    #app {
-      display: none;
-      min-height: 100vh;
-      background: #0b1220;
-      color: #e5e7eb;
-    }
-    .app-wrap {
-      display: flex;
-      min-height: 100vh;
-    }
+    /* ---------- APP SHELL + TREE SIDEBAR ---------- */
+    #app { display: none; min-height: 100vh; background: #0b1220; color: #e5e7eb; }
+    .app-wrap { display: flex; min-height: 100vh; }
+
     .sidebar {
-      width: 260px;
-      background: rgba(255,255,255,0.05);
+      width: 300px;
+      background: #0b1220;
       border-right: 1px solid rgba(255,255,255,0.10);
-      padding: 18px;
+      padding: 14px 12px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
-    .sb-brand {
-      font-weight: 900;
-      letter-spacing: 0.6px;
-      font-size: 18px;
-      margin-bottom: 2px;
-    }
-    .sb-sub {
-      opacity: 0.75;
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-    .sb-group {
-      font-size: 11px;
-      letter-spacing: 1px;
-      opacity: 0.7;
-      margin: 10px 0 6px 0;
-    }
-    .navbtn {
-      width: 100%;
-      text-align: left;
-      padding: 10px 12px;
+
+    .sb-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
+    }
+
+    .sb-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #e5e7eb;
+      font-size: 12px;
+    }
+
+    .sb-title { font-weight: 900; letter-spacing: 0.3px; color: #e5e7eb; }
+    .sb-user { margin-left: auto; font-size: 12px; opacity: 0.75; }
+
+    .tree { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+
+    .tree-group { border-radius: 12px; overflow: hidden; }
+
+    .tree-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border: none;
+      background: transparent;
       color: #e5e7eb;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 800;
+      border-radius: 12px;
     }
-    .navbtn:hover { background: rgba(255,255,255,0.12); }
-    .navbtn.active { background: rgba(255,255,255,0.18); }
 
-    .sb-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
+    .tree-toggle:hover { background: rgba(255,255,255,0.06); }
+
+    .tree-icon { width: 18px; opacity: 0.9; text-align: center; }
+
+    .tree-chevron {
+      margin-left: auto;
+      opacity: 0.7;
+      transition: transform 0.15s ease;
+    }
+
+    .tree-group[data-open="true"] .tree-chevron { transform: rotate(180deg); }
+
+    .tree-children { display: none; padding: 4px 0 8px 0; }
+    .tree-group[data-open="true"] .tree-children { display: block; }
+
+    .tree-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px 9px 34px;
+      margin: 2px 6px;
+      border-radius: 10px;
+      color: rgba(229,231,235,0.88);
+      cursor: pointer;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .tree-item:hover { background: rgba(255,255,255,0.06); }
+
+    .tree-item.active {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.10);
+      color: #ffffff;
+    }
+
+    .tree-subitem { padding-left: 56px; font-weight: 650; opacity: 0.95; }
+
+    .sb-bottom { margin-top: auto; padding-top: 10px; }
+
     .logout {
       width: 100%;
       padding: 10px 12px;
@@ -290,14 +292,12 @@
       background: transparent;
       color: #e5e7eb;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 800;
     }
     .logout:hover { background: rgba(255,255,255,0.08); }
 
-    .main {
-      flex: 1;
-      padding: 26px;
-    }
+    .main { flex: 1; padding: 26px; }
+
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -305,12 +305,8 @@
       gap: 12px;
       margin-bottom: 16px;
     }
-    .page-title {
-      font-size: 20px;
-      font-weight: 900;
-      margin: 0;
-      color: #e5e7eb;
-    }
+    .page-title { font-size: 20px; font-weight: 900; margin: 0; color: #e5e7eb; }
+
     .badge {
       font-size: 12px;
       padding: 8px 10px;
@@ -320,6 +316,7 @@
       opacity: 0.95;
       white-space: nowrap;
     }
+
     .card {
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
@@ -415,46 +412,118 @@
   <!-- APP -->
   <div id="app">
     <div class="app-wrap">
+
+      <!-- Sidebar (Tree Menu like your screenshot) -->
       <aside class="sidebar">
-        <div>
-          <div class="sb-brand">AIFINA</div>
-          <div id="sbUser" class="sb-sub">Demo • signed in</div>
+        <div class="sb-header">
+          <div class="sb-logo">AI</div>
+          <div class="sb-title">AIFINA</div>
+          <div id="sbUser" class="sb-user">Demo</div>
         </div>
 
-        <div class="sb-group">REPORTING</div>
-        <button class="navbtn active" onclick="showPage('pl', this)">P&amp;L</button>
-        <button class="navbtn" onclick="showPage('bs', this)">Balance Sheet</button>
-        <button class="navbtn" onclick="showPage('cf', this)">Cash Flow</button>
+        <div class="tree">
+
+          <!-- Reporting -->
+          <div class="tree-group" data-open="true">
+            <button class="tree-toggle" onclick="toggleGroup(this)">
+              <span class="tree-icon">📊</span>
+              <span>Reporting</span>
+              <span class="tree-chevron">▾</span>
+            </button>
+
+            <div class="tree-children">
+
+              <!-- General Summary -->
+              <div class="tree-group" data-open="true" style="margin: 0 6px;">
+                <button class="tree-toggle" onclick="toggleGroup(this)" style="padding:10px 10px;">
+                  <span class="tree-icon">🏠</span>
+                  <span>General Summary</span>
+                  <span class="tree-chevron">▾</span>
+                </button>
+
+                <div class="tree-children">
+                  <div class="tree-item active" onclick="goPage('pl', this)">P&amp;L Summary</div>
+                  <div class="tree-item" onclick="goPage('bs', this)">Balance Sheet Summary</div>
+                  <div class="tree-item" onclick="goPage('cf', this)">Cash Flow Summary</div>
+                  <div class="tree-item tree-subitem" onclick="goPage('notes', this)">Notes to the consolidated financial statements</div>
+                </div>
+              </div>
+
+              <!-- Balance Sheet -->
+              <div class="tree-group" data-open="false" style="margin: 0 6px;">
+                <button class="tree-toggle" onclick="toggleGroup(this)" style="padding:10px 10px;">
+                  <span class="tree-icon">📄</span>
+                  <span>Balance Sheet</span>
+                  <span class="tree-chevron">▾</span>
+                </button>
+
+                <div class="tree-children">
+                  <div class="tree-item" onclick="goPage('bs-exec', this)">Executive Summary</div>
+                  <div class="tree-item" onclick="goPage('bs-stmt', this)">Statements</div>
+                </div>
+              </div>
+
+              <!-- Profit & Loss -->
+              <div class="tree-group" data-open="false" style="margin: 0 6px;">
+                <button class="tree-toggle" onclick="toggleGroup(this)" style="padding:10px 10px;">
+                  <span class="tree-icon">💹</span>
+                  <span>Profit &amp; Loss</span>
+                  <span class="tree-chevron">▾</span>
+                </button>
+
+                <div class="tree-children">
+                  <div class="tree-item" onclick="goPage('pl-exec', this)">Executive Summary</div>
+                  <div class="tree-item" onclick="goPage('pl-detail', this)">Profit &amp; Loss Detailed Report</div>
+                </div>
+              </div>
+
+              <!-- Cash Flow -->
+              <div class="tree-group" data-open="false" style="margin: 0 6px;">
+                <button class="tree-toggle" onclick="toggleGroup(this)" style="padding:10px 10px;">
+                  <span class="tree-icon">💵</span>
+                  <span>Cash Flow</span>
+                  <span class="tree-chevron">▾</span>
+                </button>
+
+                <div class="tree-children">
+                  <div class="tree-item" onclick="goPage('cf-exec', this)">Executive Summary</div>
+                  <div class="tree-item" onclick="goPage('cf-stmt', this)">Statements</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
 
         <div class="sb-bottom">
           <button class="logout" onclick="logout()">Log out</button>
         </div>
       </aside>
 
+      <!-- Main content -->
       <main class="main">
         <div class="topbar">
-          <h1 id="title" class="page-title">P&amp;L</h1>
+          <h1 id="title" class="page-title">P&amp;L Summary</h1>
           <div class="badge">AI Insights: ON (demo)</div>
         </div>
 
         <div class="card">
           <h3>Dashboard</h3>
-          <p id="content" class="muted">This is the P&amp;L dashboard (demo).</p>
+          <p id="content" class="muted">This is the P&amp;L summary dashboard (demo).</p>
         </div>
 
         <div class="card">
           <h3>AI Insights (demo)</h3>
-          <p id="ai" class="muted">
-            This will later show AI-generated CFO commentary (variance drivers, risks, actions).
-          </p>
+          <p id="ai" class="muted">AI: explain revenue/margin drivers + actions.</p>
         </div>
       </main>
+
     </div>
   </div>
 
   <script>
-    // ---------- Demo Auth Settings ----------
-    // Only for demo. You can change these anytime.
+    // ---------- Demo Auth ----------
     const DEMO_PASSWORD = "1234";
     const SESSION_KEY = "aifina_demo_session_v1";
 
@@ -488,7 +557,6 @@
       const btn = document.getElementById("nextBtn");
       const spin = document.getElementById("spin");
       const txt = document.getElementById("nextText");
-
       btn.disabled = isLoading;
       spin.style.display = isLoading ? "inline-block" : "none";
       txt.style.display = isLoading ? "none" : "inline";
@@ -496,10 +564,7 @@
 
     function handleLeft() {
       clearError();
-      if (step === 1) {
-        alert("Demo: Create account later");
-        return;
-      }
+      if (step === 1) { alert("Demo: Create account later"); return; }
       step = 1;
       renderStep();
     }
@@ -507,7 +572,6 @@
     function handleNext(e) {
       e.preventDefault();
       if (loading) return false;
-
       clearError();
 
       const email = document.getElementById("email").value.trim();
@@ -520,7 +584,6 @@
 
       setLoading(true);
 
-      // simulate API call
       setTimeout(() => {
         setLoading(false);
 
@@ -557,9 +620,7 @@
         stepEmail.style.display = "none";
         stepPassword.style.display = "block";
         leftBtn.textContent = "Back";
-
-        const pw = document.getElementById("password");
-        pw.focus();
+        document.getElementById("password").focus();
       }
     }
 
@@ -567,19 +628,14 @@
       const email = document.getElementById("email").value.trim();
       const pw = document.getElementById("password").value;
 
-      // simple demo validation
       if (pw !== DEMO_PASSWORD) {
         showError("Invalid credentials. Please try again.");
         return;
       }
 
-      // Create a fake session object like a real API response
       const session = {
         token: "demo-token-" + Math.random().toString(16).slice(2),
-        user: {
-          email,
-          name: email.split("@")[0]?.replace(".", " ") || "User"
-        },
+        user: { email, name: email.split("@")[0]?.replace(".", " ") || "User" },
         createdAt: new Date().toISOString()
       };
 
@@ -590,16 +646,12 @@
     function loginSuccess(session) {
       document.getElementById("login").style.display = "none";
       document.getElementById("app").style.display = "block";
-      document.getElementById("sbUser").textContent = `Demo • ${session.user.email}`;
-
-      // default page
-      const active = document.querySelector(".navbtn.active");
-      showPage("pl", active);
+      document.getElementById("sbUser").textContent = session.user.email;
+      goPage("pl", document.querySelector(".tree-item.active"));
     }
 
     function logout() {
       localStorage.removeItem(SESSION_KEY);
-
       document.getElementById("app").style.display = "none";
       document.getElementById("login").style.display = "flex";
 
@@ -610,29 +662,42 @@
       renderStep();
     }
 
-    function showPage(type, btn) {
-      document.querySelectorAll(".navbtn").forEach(b => b.classList.remove("active"));
-      if (btn) btn.classList.add("active");
+    /* ---------- Tree menu ---------- */
+    function toggleGroup(btn) {
+      const group = btn.closest(".tree-group");
+      const isOpen = group.getAttribute("data-open") === "true";
+      group.setAttribute("data-open", isOpen ? "false" : "true");
+    }
+
+    function setActiveItem(el) {
+      document.querySelectorAll(".tree-item").forEach(x => x.classList.remove("active"));
+      if (el) el.classList.add("active");
+    }
+
+    function goPage(pageKey, el) {
+      if (el) setActiveItem(el);
 
       const title = document.getElementById("title");
       const content = document.getElementById("content");
       const ai = document.getElementById("ai");
 
-      if (type === "pl") {
-        title.textContent = "P&L";
-        content.textContent = "This is the P&L dashboard (demo).";
-        ai.textContent = "AI will explain revenue/margin drivers, abnormal OPEX, and actions for next month.";
-      }
-      if (type === "bs") {
-        title.textContent = "Balance Sheet";
-        content.textContent = "This is the Balance Sheet dashboard (demo).";
-        ai.textContent = "AI will flag working capital movements, unusual accruals, and liquidity pressure.";
-      }
-      if (type === "cf") {
-        title.textContent = "Cash Flow";
-        content.textContent = "This is the Cash Flow dashboard (demo).";
-        ai.textContent = "AI will highlight cash conversion cycle, cash burn, and treasury recommendations.";
-      }
+      const map = {
+        "pl": ["P&L Summary", "This is the P&L summary dashboard (demo).", "AI: explain revenue/margin drivers + actions."],
+        "bs": ["Balance Sheet Summary", "This is the balance sheet summary dashboard (demo).", "AI: highlight WC movements, accruals, liquidity."],
+        "cf": ["Cash Flow Summary", "This is the cash flow summary dashboard (demo).", "AI: cash burn, CCC, treasury actions."],
+        "notes": ["Notes", "Notes to consolidated financial statements (demo).", "AI: help draft explanations and variances."],
+        "bs-exec": ["Balance Sheet — Executive Summary", "Executive summary (demo).", "AI: key balance sheet risks & movements."],
+        "bs-stmt": ["Balance Sheet — Statements", "Statements (demo).", "AI: tie-out checks + anomalies."],
+        "pl-exec": ["P&L — Executive Summary", "Executive summary (demo).", "AI: story of performance (MoM/YoY vs budget)."],
+        "pl-detail": ["P&L — Detailed Report", "Detailed report (demo).", "AI: deep-dive by entity/product/client."],
+        "cf-exec": ["Cash Flow — Executive Summary", "Executive summary (demo).", "AI: cash drivers + forecast risk."],
+        "cf-stmt": ["Cash Flow — Statements", "Statements (demo).", "AI: reconciliation checks + WC impact."]
+      };
+
+      const [t, c, a] = map[pageKey] || ["Dashboard", "Demo page.", "AI demo."];
+      title.textContent = t;
+      content.textContent = c;
+      ai.textContent = a;
     }
 
     // ---------- Auto-login if session exists ----------
@@ -640,16 +705,13 @@
       try {
         const raw = localStorage.getItem(SESSION_KEY);
         if (!raw) return;
-
         const session = JSON.parse(raw);
         if (session && session.user && session.user.email) {
-          // keep email filled for realism
           document.getElementById("email").value = session.user.email;
           markNotEmpty(document.getElementById("email"));
           loginSuccess(session);
         }
       } catch (e) {
-        // if corrupted, clear it
         localStorage.removeItem(SESSION_KEY);
       }
     })();
