@@ -9,7 +9,7 @@
     * { box-sizing: border-box; }
     body { margin: 0; font-family: Arial, sans-serif; color: #111827; background: #ffffff; }
 
-    /* ---------- LOGIN (Gemini/Google-like) ---------- */
+    /* LOGIN */
     #login {
       min-height: 100vh;
       display: flex;
@@ -42,12 +42,7 @@
       margin: 0 auto 8px auto;
       background: #fff;
     }
-    .brand-name {
-      font-size: 20px;
-      font-weight: 500;
-      letter-spacing: -0.2px;
-      color: #374151;
-    }
+    .brand-name { font-size: 20px; font-weight: 500; letter-spacing: -0.2px; color: #374151; }
 
     .login-title { font-size: 24px; font-weight: 400; margin: 0 0 6px 0; color: #111827; text-align: center; }
     .login-subtitle { font-size: 16px; color: #6b7280; margin: 0 0 20px 0; text-align: center; }
@@ -96,10 +91,6 @@
       cursor: pointer;
     }
     .link:hover { color: #165fc1; }
-
-    .hint { font-size: 13px; color: #6b7280; line-height: 1.45; margin: 12px 0 0 0; }
-    .hint a { color: #1a73e8; font-weight: 700; text-decoration: none; }
-    .hint a:hover { text-decoration: underline; }
 
     .actions { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
 
@@ -155,41 +146,20 @@
       display: none;
     }
 
-    .footer {
-      margin-top: 18px;
+    .debug {
       width: 100%;
-      max-width: 448px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      color: #6b7280;
-      font-size: 12px;
-      align-items: center;
-    }
-    .footer-row {
-      width: 100%;
-      display: flex;
-      gap: 12px;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .lang-btn {
-      border: none;
-      background: transparent;
-      padding: 8px 10px;
+      margin-top: 10px;
+      padding: 10px 12px;
       border-radius: 8px;
-      cursor: pointer;
-      color: #6b7280;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      color: #1e40af;
+      font-size: 12px;
+      display: block;
+      white-space: pre-wrap;
     }
-    .lang-btn:hover { background: #f3f4f6; }
-    .footer a { color: #6b7280; text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
 
-    /* ---------- APP SHELL + TREE SIDEBAR ---------- */
+    /* APP */
     #app { display: none; min-height: 100vh; background: #0b1220; color: #e5e7eb; }
     .app-wrap { display: flex; min-height: 100vh; }
 
@@ -227,7 +197,6 @@
     .sb-user { margin-left: auto; font-size: 12px; opacity: 0.75; }
 
     .tree { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-
     .tree-group { border-radius: 12px; overflow: hidden; }
 
     .tree-toggle {
@@ -243,26 +212,16 @@
       font-weight: 800;
       border-radius: 12px;
     }
-
     .tree-toggle:hover { background: rgba(255,255,255,0.06); }
 
     .tree-icon { width: 18px; opacity: 0.9; text-align: center; }
-
-    .tree-chevron {
-      margin-left: auto;
-      opacity: 0.7;
-      transition: transform 0.15s ease;
-    }
-
+    .tree-chevron { margin-left: auto; opacity: 0.7; transition: transform 0.15s ease; }
     .tree-group[data-open="true"] .tree-chevron { transform: rotate(180deg); }
 
     .tree-children { display: none; padding: 4px 0 8px 0; }
     .tree-group[data-open="true"] .tree-children { display: block; }
 
     .tree-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
       padding: 9px 10px 9px 34px;
       margin: 2px 6px;
       border-radius: 10px;
@@ -271,19 +230,11 @@
       font-weight: 700;
       border: 1px solid transparent;
     }
-
     .tree-item:hover { background: rgba(255,255,255,0.06); }
-
-    .tree-item.active {
-      background: rgba(255,255,255,0.10);
-      border-color: rgba(255,255,255,0.10);
-      color: #ffffff;
-    }
-
+    .tree-item.active { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.10); color: #ffffff; }
     .tree-subitem { padding-left: 56px; font-weight: 650; opacity: 0.95; }
 
     .sb-bottom { margin-top: auto; padding-top: 10px; }
-
     .logout {
       width: 100%;
       padding: 10px 12px;
@@ -297,26 +248,13 @@
     .logout:hover { background: rgba(255,255,255,0.08); }
 
     .main { flex: 1; padding: 26px; }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
     .page-title { font-size: 20px; font-weight: 900; margin: 0; color: #e5e7eb; }
-
     .badge {
-      font-size: 12px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.10);
-      opacity: 0.95;
-      white-space: nowrap;
+      font-size: 12px; padding: 8px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.10);
+      opacity: 0.95; white-space: nowrap;
     }
-
     .card {
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
@@ -348,39 +286,28 @@
         <p id="loginSubtitle" class="login-subtitle">Use your AIFINA Account</p>
       </div>
 
-      <form class="form" onsubmit="return handleNext(event)">
+      <form class="form" id="loginForm">
         <div id="stepEmail">
           <div class="field">
-            <input id="email" class="input" type="email" placeholder=" " required value="alex@aifina.co"
-              oninput="markNotEmpty(this); clearError();" />
+            <input id="email" class="input" type="email" placeholder=" " required value="alex@aifina.co" />
             <div class="label">Email or phone</div>
           </div>
-
           <button type="button" class="link" onclick="alert('Demo: later')">Forgot email?</button>
         </div>
 
         <div id="stepPassword" style="display:none;">
           <div class="field">
-            <input id="password" class="input" type="password" placeholder=" " required
-              oninput="markNotEmpty(this); clearError();" />
+            <input id="password" class="input" type="password" placeholder=" " required />
             <div class="label">Enter your password</div>
           </div>
-
           <button type="button" class="link" onclick="alert('Demo: later')">Forgot password?</button>
         </div>
 
         <div id="errBox" class="error"></div>
-
-        <p class="hint">
-          Not your computer? Use Guest mode to sign in privately.<br />
-          <a href="#" onclick="event.preventDefault(); alert('Demo: later')">Learn more about using Guest mode</a>
-        </p>
+        <div id="dbg" class="debug">Debug: page loaded ✅</div>
 
         <div class="actions">
-          <button id="leftBtn" type="button" class="ghost-btn" onclick="handleLeft()">
-            Create account
-          </button>
-
+          <button id="leftBtn" type="button" class="ghost-btn">Create account</button>
           <button id="nextBtn" type="submit" class="primary-btn">
             <span id="nextText">Next</span>
             <span id="spin" class="spinner" style="display:none;"></span>
@@ -392,28 +319,11 @@
         </p>
       </form>
     </div>
-
-    <div class="footer">
-      <div class="footer-row">
-        <button class="lang-btn" onclick="alert('Demo: later')">
-          English (United States)
-          <span style="font-size:14px;">▾</span>
-        </button>
-
-        <div style="display:flex; gap:16px; flex-wrap:wrap;">
-          <a href="#" onclick="event.preventDefault(); alert('Demo: later')">Help</a>
-          <a href="#" onclick="event.preventDefault(); alert('Demo: later')">Privacy</a>
-          <a href="#" onclick="event.preventDefault(); alert('Demo: later')">Terms</a>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- APP -->
   <div id="app">
     <div class="app-wrap">
-
-      <!-- Sidebar (Tree Menu like your screenshot) -->
       <aside class="sidebar">
         <div class="sb-header">
           <div class="sb-logo">AI</div>
@@ -422,10 +332,8 @@
         </div>
 
         <div class="tree">
-
-          <!-- Reporting -->
           <div class="tree-group" data-open="true">
-            <button class="tree-toggle" onclick="toggleGroup(this)">
+            <button class="tree-toggle" type="button" onclick="toggleGroup(this)">
               <span class="tree-icon">📊</span>
               <span>Reporting</span>
               <span class="tree-chevron">▾</span>
@@ -433,9 +341,8 @@
 
             <div class="tree-children">
 
-              <!-- General Summary -->
               <div class="tree-group" data-open="true" style="margin: 0 6px;">
-                <button class="tree-toggle" onclick="toggleGroup(this)" style="padding:10px 10px;">
+                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px 10px;">
                   <span class="tree-icon">🏠</span>
                   <span>General Summary</span>
                   <span class="tree-chevron">▾</span>
@@ -449,42 +356,36 @@
                 </div>
               </div>
 
-              <!-- Balance Sheet -->
               <div class="tree-group" data-open="false" style="margin: 0 6px;">
-                <button class="tree-toggle" onclick="toggleGroup(this)" style="padding:10px 10px;">
+                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px 10px;">
                   <span class="tree-icon">📄</span>
                   <span>Balance Sheet</span>
                   <span class="tree-chevron">▾</span>
                 </button>
-
                 <div class="tree-children">
                   <div class="tree-item" onclick="goPage('bs-exec', this)">Executive Summary</div>
                   <div class="tree-item" onclick="goPage('bs-stmt', this)">Statements</div>
                 </div>
               </div>
 
-              <!-- Profit & Loss -->
               <div class="tree-group" data-open="false" style="margin: 0 6px;">
-                <button class="tree-toggle" onclick="toggleGroup(this)" style="padding:10px 10px;">
+                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px 10px;">
                   <span class="tree-icon">💹</span>
                   <span>Profit &amp; Loss</span>
                   <span class="tree-chevron">▾</span>
                 </button>
-
                 <div class="tree-children">
                   <div class="tree-item" onclick="goPage('pl-exec', this)">Executive Summary</div>
                   <div class="tree-item" onclick="goPage('pl-detail', this)">Profit &amp; Loss Detailed Report</div>
                 </div>
               </div>
 
-              <!-- Cash Flow -->
               <div class="tree-group" data-open="false" style="margin: 0 6px;">
-                <button class="tree-toggle" onclick="toggleGroup(this)" style="padding:10px 10px;">
+                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px 10px;">
                   <span class="tree-icon">💵</span>
                   <span>Cash Flow</span>
                   <span class="tree-chevron">▾</span>
                 </button>
-
                 <div class="tree-children">
                   <div class="tree-item" onclick="goPage('cf-exec', this)">Executive Summary</div>
                   <div class="tree-item" onclick="goPage('cf-stmt', this)">Statements</div>
@@ -493,15 +394,13 @@
 
             </div>
           </div>
-
         </div>
 
         <div class="sb-bottom">
-          <button class="logout" onclick="logout()">Log out</button>
+          <button class="logout" type="button" onclick="logout()">Log out</button>
         </div>
       </aside>
 
-      <!-- Main content -->
       <main class="main">
         <div class="topbar">
           <h1 id="title" class="page-title">P&amp;L Summary</h1>
@@ -518,69 +417,92 @@
           <p id="ai" class="muted">AI: explain revenue/margin drivers + actions.</p>
         </div>
       </main>
-
     </div>
   </div>
 
   <script>
-    // ---------- Demo Auth ----------
     const DEMO_PASSWORD = "1234";
-    const SESSION_KEY = "aifina_demo_session_v1";
 
-    // ---------- helpers ----------
-    function markNotEmpty(el) {
+    const dbg = (msg) => {
+      const d = document.getElementById("dbg");
+      d.textContent = "Debug: " + msg;
+      console.log(msg);
+    };
+
+    const markNotEmpty = (el) => {
       if (el.value && el.value.trim().length > 0) el.classList.add("not-empty");
       else el.classList.remove("not-empty");
-    }
+    };
 
-    function showError(msg) {
+    const showError = (msg) => {
       const box = document.getElementById("errBox");
       box.textContent = msg;
       box.style.display = "block";
-    }
+    };
 
-    function clearError() {
+    const clearError = () => {
       const box = document.getElementById("errBox");
       box.textContent = "";
       box.style.display = "none";
-    }
+    };
 
-    // ---------- state ----------
-    let step = 1; // 1=email, 2=password
+    let step = 1;
     let loading = false;
 
-    // initialize float label state
-    markNotEmpty(document.getElementById("email"));
-
-    function setLoading(isLoading) {
+    const setLoading = (isLoading) => {
       loading = isLoading;
-      const btn = document.getElementById("nextBtn");
-      const spin = document.getElementById("spin");
-      const txt = document.getElementById("nextText");
-      btn.disabled = isLoading;
-      spin.style.display = isLoading ? "inline-block" : "none";
-      txt.style.display = isLoading ? "none" : "inline";
-    }
+      document.getElementById("nextBtn").disabled = isLoading;
+      document.getElementById("spin").style.display = isLoading ? "inline-block" : "none";
+      document.getElementById("nextText").style.display = isLoading ? "none" : "inline";
+    };
 
-    function handleLeft() {
+    const renderStep = () => {
       clearError();
-      if (step === 1) { alert("Demo: Create account later"); return; }
-      step = 1;
-      renderStep();
-    }
+      const email = document.getElementById("email").value.trim();
 
-    function handleNext(e) {
+      if (step === 1) {
+        document.getElementById("loginTitle").textContent = "Sign in";
+        document.getElementById("loginSubtitle").textContent = "Use your AIFINA Account";
+        document.getElementById("stepEmail").style.display = "block";
+        document.getElementById("stepPassword").style.display = "none";
+        document.getElementById("leftBtn").textContent = "Create account";
+        dbg("Step 1 (email)");
+      } else {
+        document.getElementById("loginTitle").textContent = "Welcome";
+        document.getElementById("loginSubtitle").textContent = email || "your@email.com";
+        document.getElementById("stepEmail").style.display = "none";
+        document.getElementById("stepPassword").style.display = "block";
+        document.getElementById("leftBtn").textContent = "Back";
+        document.getElementById("password").focus();
+        dbg("Step 2 (password)");
+      }
+    };
+
+    const demoAuth = () => {
+      const email = document.getElementById("email").value.trim();
+      const pw = document.getElementById("password").value;
+
+      if (pw !== DEMO_PASSWORD) {
+        showError("Invalid credentials. Please type 1234.");
+        dbg("Wrong password entered");
+        return;
+      }
+
+      dbg("Login success ✅ switching to app");
+      document.getElementById("login").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      document.getElementById("sbUser").textContent = email;
+
+      goPage("pl", document.querySelector(".tree-item.active"));
+    };
+
+    // Handle form submit safely
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
       e.preventDefault();
-      if (loading) return false;
-      clearError();
+      if (loading) return;
 
       const email = document.getElementById("email").value.trim();
-      if (!email) return false;
-
-      if (step === 2) {
-        const pw = document.getElementById("password").value;
-        if (!pw) return false;
-      }
+      if (!email) return;
 
       setLoading(true);
 
@@ -593,76 +515,30 @@
         } else {
           demoAuth();
         }
-      }, 700);
+      }, 300);
+    });
 
-      return false;
-    }
-
-    function renderStep() {
+    // Left button behavior
+    document.getElementById("leftBtn").addEventListener("click", () => {
       clearError();
-
-      const email = document.getElementById("email").value.trim();
-      const loginTitle = document.getElementById("loginTitle");
-      const loginSubtitle = document.getElementById("loginSubtitle");
-      const stepEmail = document.getElementById("stepEmail");
-      const stepPassword = document.getElementById("stepPassword");
-      const leftBtn = document.getElementById("leftBtn");
-
       if (step === 1) {
-        loginTitle.textContent = "Sign in";
-        loginSubtitle.textContent = "Use your AIFINA Account";
-        stepEmail.style.display = "block";
-        stepPassword.style.display = "none";
-        leftBtn.textContent = "Create account";
-      } else {
-        loginTitle.textContent = "Welcome";
-        loginSubtitle.textContent = email || "your@email.com";
-        stepEmail.style.display = "none";
-        stepPassword.style.display = "block";
-        leftBtn.textContent = "Back";
-        document.getElementById("password").focus();
-      }
-    }
-
-    function demoAuth() {
-      const email = document.getElementById("email").value.trim();
-      const pw = document.getElementById("password").value;
-
-      if (pw !== DEMO_PASSWORD) {
-        showError("Invalid credentials. Please try again.");
+        alert("Demo: Create account later");
         return;
       }
-
-      const session = {
-        token: "demo-token-" + Math.random().toString(16).slice(2),
-        user: { email, name: email.split("@")[0]?.replace(".", " ") || "User" },
-        createdAt: new Date().toISOString()
-      };
-
-      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-      loginSuccess(session);
-    }
-
-    function loginSuccess(session) {
-      document.getElementById("login").style.display = "none";
-      document.getElementById("app").style.display = "block";
-      document.getElementById("sbUser").textContent = session.user.email;
-      goPage("pl", document.querySelector(".tree-item.active"));
-    }
-
-    function logout() {
-      localStorage.removeItem(SESSION_KEY);
-      document.getElementById("app").style.display = "none";
-      document.getElementById("login").style.display = "flex";
-
-      document.getElementById("password").value = "";
-      markNotEmpty(document.getElementById("password"));
-
       step = 1;
       renderStep();
-    }
+    });
 
-    /* ---------- Tree menu ---------- */
+    // Input float labels
+    const emailEl = document.getElementById("email");
+    const passEl = document.getElementById("password");
+
+    emailEl.addEventListener("input", () => { markNotEmpty(emailEl); clearError(); });
+    passEl.addEventListener("input", () => { markNotEmpty(passEl); clearError(); });
+
+    markNotEmpty(emailEl);
+
+    // Sidebar
     function toggleGroup(btn) {
       const group = btn.closest(".tree-group");
       const isOpen = group.getAttribute("data-open") === "true";
@@ -685,13 +561,7 @@
         "pl": ["P&L Summary", "This is the P&L summary dashboard (demo).", "AI: explain revenue/margin drivers + actions."],
         "bs": ["Balance Sheet Summary", "This is the balance sheet summary dashboard (demo).", "AI: highlight WC movements, accruals, liquidity."],
         "cf": ["Cash Flow Summary", "This is the cash flow summary dashboard (demo).", "AI: cash burn, CCC, treasury actions."],
-        "notes": ["Notes", "Notes to consolidated financial statements (demo).", "AI: help draft explanations and variances."],
-        "bs-exec": ["Balance Sheet — Executive Summary", "Executive summary (demo).", "AI: key balance sheet risks & movements."],
-        "bs-stmt": ["Balance Sheet — Statements", "Statements (demo).", "AI: tie-out checks + anomalies."],
-        "pl-exec": ["P&L — Executive Summary", "Executive summary (demo).", "AI: story of performance (MoM/YoY vs budget)."],
-        "pl-detail": ["P&L — Detailed Report", "Detailed report (demo).", "AI: deep-dive by entity/product/client."],
-        "cf-exec": ["Cash Flow — Executive Summary", "Executive summary (demo).", "AI: cash drivers + forecast risk."],
-        "cf-stmt": ["Cash Flow — Statements", "Statements (demo).", "AI: reconciliation checks + WC impact."]
+        "notes": ["Notes", "Notes to consolidated financial statements (demo).", "AI: help draft explanations and variances."]
       };
 
       const [t, c, a] = map[pageKey] || ["Dashboard", "Demo page.", "AI demo."];
@@ -700,21 +570,18 @@
       ai.textContent = a;
     }
 
-    // ---------- Auto-login if session exists ----------
-    (function boot() {
-      try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        if (!raw) return;
-        const session = JSON.parse(raw);
-        if (session && session.user && session.user.email) {
-          document.getElementById("email").value = session.user.email;
-          markNotEmpty(document.getElementById("email"));
-          loginSuccess(session);
-        }
-      } catch (e) {
-        localStorage.removeItem(SESSION_KEY);
-      }
-    })();
+    function logout() {
+      document.getElementById("app").style.display = "none";
+      document.getElementById("login").style.display = "flex";
+      document.getElementById("password").value = "";
+      markNotEmpty(document.getElementById("password"));
+      step = 1;
+      renderStep();
+      dbg("Logged out");
+    }
+
+    // Start
+    renderStep();
   </script>
 </body>
 </html>
