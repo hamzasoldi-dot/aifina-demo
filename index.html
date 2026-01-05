@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AIFINA Demo</title>
+
   <style>
     *{box-sizing:border-box}
     body{margin:0;font-family:Arial,sans-serif;background:#fff;color:#111827}
 
-    /* LOGIN */
+    /* ============ LOGIN ============ */
     #login{
       min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
       padding:16px;background:#fff
@@ -24,7 +25,7 @@
       display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(0,0,0,.06);
       margin:0 auto 8px auto
     }
-    .brand-name{font-size:20px;font-weight:500;color:#374151}
+    .brand-name{font-size:20px;font-weight:600;color:#374151;letter-spacing:-0.2px}
     .login-title{font-size:24px;font-weight:400;margin:0 0 6px 0;text-align:center}
     .login-subtitle{font-size:16px;color:#6b7280;margin:0 0 18px 0;text-align:center}
 
@@ -40,13 +41,11 @@
       padding:10px 12px;border-radius:8px;cursor:pointer
     }
     .ghost-btn:hover{background:#eef6ff}
-
     .primary-btn{
       background:#1a73e8;color:#fff;border:none;border-radius:6px;padding:10px 18px;
       font-size:13px;font-weight:700;cursor:pointer;min-width:88px
     }
     .primary-btn:hover{background:#1b66c9}
-
     .status{
       width:100%;margin-top:12px;padding:10px 12px;border-radius:8px;
       border:1px solid #dbeafe;background:#eff6ff;color:#1e40af;font-size:12px;white-space:pre-wrap
@@ -56,59 +55,107 @@
       border:1px solid #fecaca;background:#fef2f2;color:#991b1b;font-size:13px;display:none
     }
 
-    /* APP */
+    /* ============ APP ============ */
     #app{display:none;min-height:100vh;background:#0b1220;color:#e5e7eb}
     .app-wrap{display:flex;min-height:100vh}
 
+    /* Sidebar layout */
     .sidebar{
-      width:300px;background:#0b1220;border-right:1px solid rgba(255,255,255,.1);
-      padding:14px 12px;display:flex;flex-direction:column;gap:10px
+      width:320px;background:#ffffff;
+      border-right:1px solid #e5e7eb;
+      padding:14px 12px;
+      display:flex;flex-direction:column;gap:10px;
+      color:#111827;
     }
-    .sb-header{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px}
+    .sb-header{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 10px;border-radius:12px;
+      background:#ffffff;
+    }
     .sb-logo{
-      width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.08);
-      display:grid;place-items:center;font-weight:900;font-size:12px
+      width:28px;height:28px;border-radius:8px;background:#eef2ff;
+      display:grid;place-items:center;font-weight:900;font-size:12px;color:#1f2a44
     }
-    .sb-title{font-weight:900}
-    .sb-user{margin-left:auto;font-size:12px;opacity:.75}
+    .sb-title{font-weight:900;letter-spacing:0.2px}
+    .sb-user{margin-left:auto;font-size:12px;color:#6b7280}
 
-    .tree{display:flex;flex-direction:column;gap:6px;margin-top:4px}
-    .tree-group{border-radius:12px;overflow:hidden}
-    .tree-toggle{
-      width:100%;display:flex;align-items:center;gap:10px;padding:10px;border:none;background:transparent;
-      color:#e5e7eb;cursor:pointer;font-weight:800;border-radius:12px
+    /* Tree menu */
+    .tree{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+    .group{border-radius:12px;overflow:hidden}
+    .group-btn{
+      width:100%;
+      display:flex;align-items:center;gap:10px;
+      padding:10px 10px;
+      border:none;background:#fff;color:#111827;
+      cursor:pointer;font-weight:800;border-radius:12px;
     }
-    .tree-toggle:hover{background:rgba(255,255,255,.06)}
-    .tree-chevron{margin-left:auto;opacity:.7;transition:transform .15s ease}
-    .tree-group[data-open="true"] .tree-chevron{transform:rotate(180deg)}
-    .tree-children{display:none;padding:4px 0 8px 0}
-    .tree-group[data-open="true"] .tree-children{display:block}
+    .group-btn:hover{background:#f3f4f6}
+    .chev{margin-left:auto;color:#6b7280;transition:transform .15s ease}
+    .group[data-open="true"] .chev{transform:rotate(180deg)}
 
-    .tree-item{
-      padding:9px 10px 9px 34px;margin:2px 6px;border-radius:10px;color:rgba(229,231,235,.88);
-      cursor:pointer;font-weight:700;border:1px solid transparent
+    .children{display:none;padding:2px 0 8px 0}
+    .group[data-open="true"] .children{display:block}
+
+    .item{
+      display:flex;align-items:center;gap:10px;
+      padding:9px 10px 9px 34px;
+      margin:2px 6px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      color:#374151;
+      border:1px solid transparent;
     }
-    .tree-item:hover{background:rgba(255,255,255,.06)}
-    .tree-item.active{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.10);color:#fff}
-    .tree-subitem{padding-left:56px;font-weight:650}
+    .item:hover{background:#f3f4f6}
+    .item.active{
+      background:#eef6ff;
+      border-color:#cfe3ff;
+      color:#0b3a75;
+    }
+    .item .dot{
+      width:8px;height:8px;border-radius:999px;background:#cbd5e1;
+    }
+    .item.active .dot{background:#1a73e8}
+    .subitem{padding-left:56px;font-weight:650;color:#4b5563}
 
+    /* bottom */
     .sb-bottom{margin-top:auto;padding-top:10px}
     .logout{
-      width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
-      background:transparent;color:#e5e7eb;cursor:pointer;font-weight:800
+      width:100%;
+      padding:10px 12px;border-radius:12px;border:1px solid #e5e7eb;
+      background:#fff;color:#111827;cursor:pointer;font-weight:800
     }
-    .logout:hover{background:rgba(255,255,255,.08)}
+    .logout:hover{background:#f9fafb}
 
-    .main{flex:1;padding:26px}
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
-    .page-title{font-size:20px;font-weight:900;margin:0}
-    .badge{font-size:12px;padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10)}
-    .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:18px;margin-top:14px}
-    .card h3{margin:0 0 8px 0}
+    /* Main area */
+    .main{
+      flex:1;
+      padding:22px;
+      background:#0b1220;
+      color:#e5e7eb;
+    }
+    .topbar{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      margin-bottom:16px;
+    }
+    .page-title{font-size:20px;font-weight:900;margin:0;color:#e5e7eb}
+    .badge{
+      font-size:12px;padding:8px 10px;border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10)
+    }
+    .card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;padding:18px;margin-top:14px
+    }
+    .card h3{margin:0 0 8px 0;color:#e5e7eb}
     .muted{opacity:.85;margin:0}
+
+    /* small breadcrumb */
+    .crumb{font-size:12px;color:rgba(229,231,235,.75);margin:0 0 8px 0}
   </style>
 
-  <!-- IMPORTANT: script here so it's loaded before clicks -->
   <script>
     let step = 1; // 1=email, 2=password
     const DEMO_PASSWORD = "1234";
@@ -153,7 +200,6 @@
         return;
       }
 
-      // step 2: check password
       const pw = document.getElementById("password").value;
       if(pw !== DEMO_PASSWORD){
         showError("Wrong password. Type 1234.");
@@ -161,10 +207,14 @@
         return;
       }
 
-      // success
+      // success -> show app
       document.getElementById("login").style.display = "none";
       document.getElementById("app").style.display = "block";
       document.getElementById("sbUser").textContent = email;
+
+      // default page
+      const first = document.querySelector('[data-page="reporting.dashboard.generalSummary"]');
+      if (first) goPage(first.getAttribute("data-page"), first);
       setStatus("Logged in ✅ showing app");
     }
 
@@ -194,32 +244,99 @@
     }
 
     function toggleGroup(btn){
-      const group = btn.closest(".tree-group");
+      const group = btn.closest(".group");
       const isOpen = group.getAttribute("data-open") === "true";
       group.setAttribute("data-open", isOpen ? "false" : "true");
     }
 
     function setActiveItem(el){
-      document.querySelectorAll(".tree-item").forEach(x => x.classList.remove("active"));
+      document.querySelectorAll(".item").forEach(x => x.classList.remove("active"));
       el.classList.add("active");
     }
 
     function goPage(key, el){
       setActiveItem(el);
+
+      // breadcrumb
+      const crumb = document.getElementById("crumb");
       const title = document.getElementById("title");
       const content = document.getElementById("content");
       const ai = document.getElementById("ai");
 
-      const map = {
-        pl: ["P&L Summary","This is the P&L summary dashboard (demo).","AI: explain revenue/margin drivers + actions."],
-        bs: ["Balance Sheet Summary","This is the balance sheet summary dashboard (demo).","AI: working capital + liquidity insights."],
-        cf: ["Cash Flow Summary","This is the cash flow summary dashboard (demo).","AI: cash drivers + treasury actions."],
+      const pages = {
+        "reporting.dashboard.generalSummary": {
+          crumb: "Reporting > Dashboard > General Summary",
+          title: "General Summary",
+          content: "This is your executive consolidated overview (demo).",
+          ai: "AI: summarize performance, identify key movements, propose CFO actions."
+        },
+        "reporting.dashboard.plSummary": {
+          crumb: "Reporting > Dashboard > P&L Summary",
+          title: "P&L Summary",
+          content: "This is the P&L summary dashboard (demo).",
+          ai: "AI: explain revenue and margin drivers + actions."
+        },
+        "reporting.dashboard.bsSummary": {
+          crumb: "Reporting > Dashboard > Balance Sheet Summary",
+          title: "Balance Sheet Summary",
+          content: "This is the balance sheet summary dashboard (demo).",
+          ai: "AI: highlight working capital movements and liquidity risks."
+        },
+        "reporting.dashboard.cfSummary": {
+          crumb: "Reporting > Dashboard > Cash Flow Summary",
+          title: "Cash Flow Summary",
+          content: "This is the cash flow summary dashboard (demo).",
+          ai: "AI: cash drivers, burn, CCC, treasury actions."
+        },
+        "reporting.pl.exec": {
+          crumb: "Reporting > Profit & Loss > Executive Summary",
+          title: "P&L Executive Summary",
+          content: "High-level P&L narrative and management view (demo).",
+          ai: "AI: produce narrative for each line movement, ask client where needed."
+        },
+        "reporting.pl.detail": {
+          crumb: "Reporting > Profit & Loss > Detailed Report",
+          title: "P&L Detailed Report",
+          content: "Detailed P&L by account / cost center (demo placeholder).",
+          ai: "AI: drill down anomalies and contributors."
+        },
+        "reporting.bs.exec": {
+          crumb: "Reporting > Balance Sheet > Executive Summary",
+          title: "Balance Sheet Executive Summary",
+          content: "Key movements, liquidity view, and risks (demo placeholder).",
+          ai: "AI: explain drivers of changes and questions for the client."
+        },
+        "reporting.bs.statements": {
+          crumb: "Reporting > Balance Sheet > Statements",
+          title: "Balance Sheet Statements",
+          content: "Statement layout placeholder (demo).",
+          ai: "AI: reconciliation checks and narrative for audit."
+        },
+        "reporting.cf.exec": {
+          crumb: "Reporting > Cash Flow > Executive Summary",
+          title: "Cash Flow Executive Summary",
+          content: "Cash overview and key movements (demo).",
+          ai: "AI: treasury recommendations and cash risk alerts."
+        },
+        "reporting.cf.statements": {
+          crumb: "Reporting > Cash Flow > Statements",
+          title: "Cash Flow Statements",
+          content: "Cash flow statement layout placeholder (demo).",
+          ai: "AI: explain operating/investing/financing drivers."
+        }
       };
 
-      const v = map[key] || ["Dashboard","Demo page.","AI demo."];
-      title.textContent = v[0];
-      content.textContent = v[1];
-      ai.textContent = v[2];
+      const p = pages[key] || {
+        crumb: "AIFINA",
+        title: "Dashboard",
+        content: "Demo page.",
+        ai: "AI demo."
+      };
+
+      crumb.textContent = p.crumb;
+      title.textContent = p.title;
+      content.textContent = p.content;
+      ai.textContent = p.ai;
     }
 
     window.addEventListener("load", () => {
@@ -229,6 +346,7 @@
 </head>
 
 <body>
+
   <!-- LOGIN -->
   <div id="login">
     <div class="login-card">
@@ -279,6 +397,8 @@
   <!-- APP -->
   <div id="app">
     <div class="app-wrap">
+
+      <!-- SIDEBAR -->
       <aside class="sidebar">
         <div class="sb-header">
           <div class="sb-logo">AI</div>
@@ -287,25 +407,85 @@
         </div>
 
         <div class="tree">
-          <div class="tree-group" data-open="true">
-            <button class="tree-toggle" type="button" onclick="toggleGroup(this)">
-              <span>📊</span><span>Reporting</span><span class="tree-chevron">▾</span>
+
+          <!-- Reporting -->
+          <div class="group" data-open="true">
+            <button class="group-btn" type="button" onclick="toggleGroup(this)">
+              <span>📊</span><span>Reporting</span><span class="chev">▾</span>
             </button>
 
-            <div class="tree-children">
-              <div class="tree-group" data-open="true" style="margin:0 6px;">
-                <button class="tree-toggle" type="button" onclick="toggleGroup(this)" style="padding:10px">
-                  <span>🏠</span><span>General Summary</span><span class="tree-chevron">▾</span>
+            <div class="children">
+
+              <!-- Dashboard -->
+              <div class="group" data-open="true" style="margin:0 6px;">
+                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="padding:10px">
+                  <span>🏠</span><span>Dashboard</span><span class="chev">▾</span>
                 </button>
 
-                <div class="tree-children">
-                  <div class="tree-item active" onclick="goPage('pl', this)">P&amp;L Summary</div>
-                  <div class="tree-item" onclick="goPage('bs', this)">Balance Sheet Summary</div>
-                  <div class="tree-item" onclick="goPage('cf', this)">Cash Flow Summary</div>
+                <div class="children">
+                  <div class="item active" data-page="reporting.dashboard.generalSummary" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> General Summary
+                  </div>
+                  <div class="item" data-page="reporting.dashboard.bsSummary" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> Balance Sheet Summary
+                  </div>
+                  <div class="item" data-page="reporting.dashboard.plSummary" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> P&amp;L Summary
+                  </div>
+                  <div class="item" data-page="reporting.dashboard.cfSummary" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> Cash Flow Summary
+                  </div>
                 </div>
               </div>
+
+              <!-- Balance Sheet -->
+              <div class="group" data-open="false" style="margin:0 6px;">
+                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="padding:10px">
+                  <span>📄</span><span>Balance Sheet</span><span class="chev">▾</span>
+                </button>
+                <div class="children">
+                  <div class="item" data-page="reporting.bs.exec" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> Executive Summary
+                  </div>
+                  <div class="item" data-page="reporting.bs.statements" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> Statements
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profit & Loss -->
+              <div class="group" data-open="false" style="margin:0 6px;">
+                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="padding:10px">
+                  <span>💹</span><span>Profit &amp; Loss</span><span class="chev">▾</span>
+                </button>
+                <div class="children">
+                  <div class="item" data-page="reporting.pl.exec" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> Executive Summary
+                  </div>
+                  <div class="item" data-page="reporting.pl.detail" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> Detailed Report
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cash Flow -->
+              <div class="group" data-open="false" style="margin:0 6px;">
+                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="padding:10px">
+                  <span>💵</span><span>Cash Flow</span><span class="chev">▾</span>
+                </button>
+                <div class="children">
+                  <div class="item" data-page="reporting.cf.exec" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> Executive Summary
+                  </div>
+                  <div class="item" data-page="reporting.cf.statements" onclick="goPage(this.getAttribute('data-page'), this)">
+                    <span class="dot"></span> Statements
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
+
         </div>
 
         <div class="sb-bottom">
@@ -313,23 +493,35 @@
         </div>
       </aside>
 
+      <!-- MAIN -->
       <main class="main">
+        <p id="crumb" class="crumb">Reporting &gt; Dashboard &gt; General Summary</p>
+
         <div class="topbar">
-          <h1 id="title" class="page-title">P&amp;L Summary</h1>
+          <h1 id="title" class="page-title">General Summary</h1>
           <div class="badge">AI Insights: ON (demo)</div>
         </div>
 
         <div class="card">
           <h3>Dashboard</h3>
-          <p id="content" class="muted">This is the P&amp;L summary dashboard (demo).</p>
+          <p id="content" class="muted">This is your executive consolidated overview (demo).</p>
         </div>
 
         <div class="card">
           <h3>AI Insights (demo)</h3>
-          <p id="ai" class="muted">AI: explain revenue/margin drivers + actions.</p>
+          <p id="ai" class="muted">AI: summarize performance, identify key movements, propose CFO actions.</p>
+        </div>
+
+        <div class="card">
+          <h3>Client Inputs Needed</h3>
+          <p class="muted">
+            This section will list questions to ask the client (e.g., unusual movements, one-offs, reclassifications).
+          </p>
         </div>
       </main>
+
     </div>
   </div>
+
 </body>
 </html>
