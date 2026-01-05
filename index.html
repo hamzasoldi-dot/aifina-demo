@@ -5,155 +5,360 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AIFINA Demo</title>
 
+  <!-- Mulish font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
     *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,sans-serif;background:#fff;color:#111827}
+    body{
+      margin:0;
+      font-family:"Mulish", Arial, sans-serif;
+      background:#fff;
+      color:#111827;
+    }
+
+    /* ====== AIFINA Light Theme (same spirit as login) ====== */
+    :root{
+      --bg: #ffffff;
+      --panel: #ffffff;
+      --page: #f7f9fc;
+      --border: #e5e7eb;
+      --muted: #6b7280;
+      --text: #111827;
+      --primary: #1a73e8;
+      --primaryHover: #1b66c9;
+      --primarySoft: #eef6ff;
+      --shadow: 0 1px 2px rgba(0,0,0,.06);
+      --radius: 14px;
+    }
 
     /* ============ LOGIN ============ */
     #login{
-      min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-      padding:16px;background:#fff
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      background:var(--bg);
     }
     .login-card{
-      width:100%;max-width:448px;border:1px solid #e5e7eb;border-radius:10px;
-      padding:28px 24px;box-shadow:0 1px 2px rgba(0,0,0,.04);
-      display:flex;flex-direction:column;align-items:center
+      width:100%;
+      max-width:448px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:28px 24px;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      background:var(--panel);
     }
     .brand-wrap{text-align:center;margin-bottom:18px}
     .logo-circle{
       width:48px;height:48px;border-radius:999px;border:1px solid #f3f4f6;background:#fff;
-      display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(0,0,0,.06);
+      display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);
       margin:0 auto 8px auto
     }
-    .brand-name{font-size:20px;font-weight:600;color:#374151;letter-spacing:-0.2px}
-    .login-title{font-size:24px;font-weight:400;margin:0 0 6px 0;text-align:center}
-    .login-subtitle{font-size:16px;color:#6b7280;margin:0 0 18px 0;text-align:center}
+    .brand-name{
+      font-size:20px;
+      font-weight:700;
+      color:#374151;
+      letter-spacing:-0.2px
+    }
+    .login-title{
+      font-size:24px;
+      font-weight:500;
+      margin:0 0 6px 0;
+      text-align:center
+    }
+    .login-subtitle{
+      font-size:15px;
+      color:var(--muted);
+      margin:0 0 18px 0;
+      text-align:center
+    }
 
     .field{position:relative;width:100%;margin-bottom:12px}
     .input{
-      width:100%;padding:14px;font-size:16px;border-radius:6px;border:1px solid #d1d5db;outline:none;background:#fff
+      width:100%;
+      padding:14px;
+      font-size:15px;
+      border-radius:10px;
+      border:1px solid #d1d5db;
+      outline:none;
+      background:#fff
     }
-    .input:focus{border-color:#1a73e8;box-shadow:0 0 0 1px #1a73e8}
+    .input:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 1px var(--primary)
+    }
 
-    .row{width:100%;display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}
+    .row{
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:14px;
+      gap:12px
+    }
     .ghost-btn{
-      border:none;background:transparent;color:#1a73e8;font-weight:700;font-size:13px;
-      padding:10px 12px;border-radius:8px;cursor:pointer
+      border:none;background:transparent;color:var(--primary);font-weight:800;font-size:13px;
+      padding:10px 12px;border-radius:10px;cursor:pointer
     }
-    .ghost-btn:hover{background:#eef6ff}
+    .ghost-btn:hover{background:var(--primarySoft)}
     .primary-btn{
-      background:#1a73e8;color:#fff;border:none;border-radius:6px;padding:10px 18px;
-      font-size:13px;font-weight:700;cursor:pointer;min-width:88px
+      background:var(--primary);
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      padding:10px 18px;
+      font-size:13px;
+      font-weight:800;
+      cursor:pointer;
+      min-width:88px;
+      box-shadow:var(--shadow);
     }
-    .primary-btn:hover{background:#1b66c9}
+    .primary-btn:hover{background:var(--primaryHover)}
     .status{
-      width:100%;margin-top:12px;padding:10px 12px;border-radius:8px;
-      border:1px solid #dbeafe;background:#eff6ff;color:#1e40af;font-size:12px;white-space:pre-wrap
+      width:100%;
+      margin-top:12px;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #dbeafe;
+      background:var(--primarySoft);
+      color:#1e40af;
+      font-size:12px;
+      white-space:pre-wrap
     }
     .error{
-      width:100%;margin-top:10px;padding:10px 12px;border-radius:8px;
-      border:1px solid #fecaca;background:#fef2f2;color:#991b1b;font-size:13px;display:none
+      width:100%;
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #fecaca;
+      background:#fef2f2;
+      color:#991b1b;
+      font-size:13px;
+      display:none
     }
 
     /* ============ APP ============ */
-    #app{display:none;min-height:100vh;background:#0b1220;color:#e5e7eb}
+    #app{display:none;min-height:100vh;background:var(--page);color:var(--text)}
     .app-wrap{display:flex;min-height:100vh}
 
-    /* Sidebar layout */
+    /* Sidebar */
     .sidebar{
-      width:320px;background:#ffffff;
-      border-right:1px solid #e5e7eb;
+      width:330px;
+      background:var(--panel);
+      border-right:1px solid var(--border);
       padding:14px 12px;
-      display:flex;flex-direction:column;gap:10px;
-      color:#111827;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      color:var(--text);
     }
     .sb-header{
-      display:flex;align-items:center;gap:10px;
-      padding:10px 10px;border-radius:12px;
-      background:#ffffff;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 10px;
+      border-radius:14px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
     }
     .sb-logo{
-      width:28px;height:28px;border-radius:8px;background:#eef2ff;
-      display:grid;place-items:center;font-weight:900;font-size:12px;color:#1f2a44
+      width:32px;height:32px;border-radius:10px;background:var(--primarySoft);
+      display:grid;place-items:center;font-weight:900;font-size:12px;color:#0b3a75
     }
     .sb-title{font-weight:900;letter-spacing:0.2px}
-    .sb-user{margin-left:auto;font-size:12px;color:#6b7280}
+    .sb-user{
+      margin-left:auto;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+    }
 
-    /* Tree menu */
-    .tree{display:flex;flex-direction:column;gap:6px;margin-top:2px}
-    .group{border-radius:12px;overflow:hidden}
+    /* Menu tree */
+    .tree{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+    .group{
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background:#fff;
+    }
     .group-btn{
       width:100%;
-      display:flex;align-items:center;gap:10px;
-      padding:10px 10px;
-      border:none;background:#fff;color:#111827;
-      cursor:pointer;font-weight:800;border-radius:12px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 12px;
+      border:none;
+      background:#fff;
+      color:var(--text);
+      cursor:pointer;
+      font-weight:900;
+      font-size:13px;
     }
     .group-btn:hover{background:#f3f4f6}
-    .chev{margin-left:auto;color:#6b7280;transition:transform .15s ease}
+    .chev{
+      margin-left:auto;
+      color:var(--muted);
+      transition:transform .15s ease;
+      font-weight:900;
+    }
     .group[data-open="true"] .chev{transform:rotate(180deg)}
-
-    .children{display:none;padding:2px 0 8px 0}
+    .children{display:none;padding:2px 0 10px 0}
     .group[data-open="true"] .children{display:block}
 
     .item{
-      display:flex;align-items:center;gap:10px;
-      padding:9px 10px 9px 34px;
-      margin:2px 6px;
-      border-radius:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 10px 10px 34px;
+      margin:4px 10px;
+      border-radius:12px;
       cursor:pointer;
-      font-weight:700;
+      font-weight:800;
       color:#374151;
       border:1px solid transparent;
+      font-size:13px;
+      transition:background .12s ease, border-color .12s ease;
     }
     .item:hover{background:#f3f4f6}
     .item.active{
-      background:#eef6ff;
+      background:var(--primarySoft);
       border-color:#cfe3ff;
       color:#0b3a75;
     }
-    .item .dot{
+    .dot{
       width:8px;height:8px;border-radius:999px;background:#cbd5e1;
     }
-    .item.active .dot{background:#1a73e8}
-    .subitem{padding-left:56px;font-weight:650;color:#4b5563}
+    .item.active .dot{background:var(--primary)}
+    .subitem{padding-left:56px;font-weight:750;color:#4b5563}
 
-    /* bottom */
     .sb-bottom{margin-top:auto;padding-top:10px}
     .logout{
       width:100%;
-      padding:10px 12px;border-radius:12px;border:1px solid #e5e7eb;
-      background:#fff;color:#111827;cursor:pointer;font-weight:800
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+      cursor:pointer;
+      font-weight:900;
+      box-shadow:var(--shadow);
     }
     .logout:hover{background:#f9fafb}
 
-    /* Main area */
+    /* Main content */
     .main{
       flex:1;
-      padding:22px;
-      background:#0b1220;
-      color:#e5e7eb;
+      padding:18px 22px 26px 22px;
+      background:var(--page);
+      color:var(--text);
     }
+
     .topbar{
-      display:flex;justify-content:space-between;align-items:center;gap:12px;
-      margin-bottom:16px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
     }
-    .page-title{font-size:20px;font-weight:900;margin:0;color:#e5e7eb}
+    .topbar-left{display:flex;flex-direction:column;gap:6px}
+    .crumb{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .page-title{
+      font-size:22px;
+      font-weight:900;
+      margin:0;
+      color:var(--text);
+      letter-spacing:-0.2px;
+    }
     .badge{
-      font-size:12px;padding:8px 10px;border-radius:999px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10)
+      font-size:12px;
+      padding:10px 12px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--border);
+      color:#0b3a75;
+      font-weight:900;
+      box-shadow:var(--shadow);
+      white-space:nowrap;
+      height:fit-content;
+    }
+
+    /* Cards + grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
     }
     .card{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;padding:18px;margin-top:14px
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:var(--shadow);
     }
-    .card h3{margin:0 0 8px 0;color:#e5e7eb}
-    .muted{opacity:.85;margin:0}
+    .card h3{
+      margin:0 0 6px 0;
+      font-size:14px;
+      font-weight:900;
+      color:var(--text);
+    }
+    .muted{opacity:.9;margin:0;color:var(--muted);font-weight:700;font-size:13px;line-height:1.45}
 
-    /* small breadcrumb */
-    .crumb{font-size:12px;color:rgba(229,231,235,.75);margin:0 0 8px 0}
+    .kpi{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .kpi .val{
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-0.2px;
+      color:var(--text);
+    }
+    .kpi .sub{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+    }
+    .pill{
+      background:#f3f4f6;
+      border:1px solid var(--border);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .pill.good{background:#ecfdf3;border-color:#bbf7d0;color:#166534}
+    .pill.bad{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+    .pill.neutral{background:var(--primarySoft);border-color:#cfe3ff;color:#0b3a75}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--border);
+      background:#fff;
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:900;
+      cursor:pointer;
+      color:#111827;
+      box-shadow:var(--shadow);
+    }
+    .btn:hover{background:#f9fafb}
   </style>
 
   <script>
@@ -165,7 +370,6 @@
       if (el) el.textContent = "STATUS: " + msg;
       console.log("STATUS:", msg);
     }
-
     function showError(msg){
       const e = document.getElementById("errBox");
       e.style.display = "block";
@@ -215,6 +419,7 @@
       // default page
       const first = document.querySelector('[data-page="reporting.dashboard.generalSummary"]');
       if (first) goPage(first.getAttribute("data-page"), first);
+
       setStatus("Logged in ✅ showing app");
     }
 
@@ -239,7 +444,7 @@
       document.getElementById("login").style.display = "flex";
       document.getElementById("password").value = "";
       step = 1;
-      leftClicked(); // resets UI
+      leftClicked();
       setStatus("Logged out ✅");
     }
 
@@ -257,86 +462,145 @@
     function goPage(key, el){
       setActiveItem(el);
 
-      // breadcrumb
       const crumb = document.getElementById("crumb");
       const title = document.getElementById("title");
-      const content = document.getElementById("content");
-      const ai = document.getElementById("ai");
+
+      const k1 = document.getElementById("k1"); // Revenue
+      const k2 = document.getElementById("k2"); // EBITDA
+      const k3 = document.getElementById("k3"); // Cash
+      const k4 = document.getElementById("k4"); // Working Capital
+
+      const ai = document.getElementById("aiText");
+      const client = document.getElementById("clientText");
 
       const pages = {
         "reporting.dashboard.generalSummary": {
           crumb: "Reporting > Dashboard > General Summary",
           title: "General Summary",
-          content: "This is your executive consolidated overview (demo).",
-          ai: "AI: summarize performance, identify key movements, propose CFO actions."
+          kpis: {
+            revenue: { val: "AED 128.4M", pills: ["MTD +3.2%", "vs Budget -1.1%"] },
+            ebitda: { val: "AED 18.7M", pills: ["Margin 14.6%", "MoM +0.4pp"] },
+            cash:   { val: "AED 22.1M", pills: ["Runway 3.4 months", "Collections improving"] },
+            wc:     { val: "AED (9.8M)", pills: ["DSO 61d", "DPO 54d"] },
+          },
+          ai: "AI summary (demo): performance is stable, but budget gap suggests either volume softness or pricing pressure. Focus on top client mix, collections discipline, and margin leakage drivers.",
+          client: "Client inputs (demo): confirm one-offs in revenue, any delayed billing, large credit notes, and any reclassification between COGS and OPEX."
         },
         "reporting.dashboard.plSummary": {
           crumb: "Reporting > Dashboard > P&L Summary",
           title: "P&L Summary",
-          content: "This is the P&L summary dashboard (demo).",
-          ai: "AI: explain revenue and margin drivers + actions."
+          kpis: {
+            revenue: { val: "AED 128.4M", pills: ["MoM +3.2%", "YTD +9.8%"] },
+            ebitda:  { val: "AED 18.7M", pills: ["Margin 14.6%", "vs LY +0.6pp"] },
+            cash:    { val: "AED 22.1M", pills: ["OPEX control", "FX stable"] },
+            wc:      { val: "AED (9.8M)", pills: ["Discounts watch", "Returns watch"] },
+          },
+          ai: "AI P&L (demo): break revenue into price/volume/mix; identify gross margin pressure by category or client; map OPEX variances to headcount, marketing, and logistics.",
+          client: "Client inputs (demo): provide budget by cost center, promo calendar, and any non-recurring expenses."
         },
         "reporting.dashboard.bsSummary": {
           crumb: "Reporting > Dashboard > Balance Sheet Summary",
           title: "Balance Sheet Summary",
-          content: "This is the balance sheet summary dashboard (demo).",
-          ai: "AI: highlight working capital movements and liquidity risks."
+          kpis: {
+            revenue: { val: "AR AED 41.2M", pills: ["Top 5 = 62%", "Aging risk"] },
+            ebitda:  { val: "Inventory AED 33.5M", pills: ["Turns 6.1x", "Slow movers"] },
+            cash:    { val: "Cash AED 22.1M", pills: ["Liquidity ok", "Bank covenants"] },
+            wc:      { val: "AP AED 36.9M", pills: ["DPO 54d", "Supplier terms"] },
+          },
+          ai: "AI BS (demo): watch AR concentration and aging; validate inventory provisioning; ensure liabilities classification is clean; confirm related party balances and interest accruals.",
+          client: "Client inputs (demo): AR aging file, inventory provisioning policy, debt schedules, and related party confirmations."
         },
         "reporting.dashboard.cfSummary": {
           crumb: "Reporting > Dashboard > Cash Flow Summary",
           title: "Cash Flow Summary",
-          content: "This is the cash flow summary dashboard (demo).",
-          ai: "AI: cash drivers, burn, CCC, treasury actions."
+          kpis: {
+            revenue: { val: "Op CF AED 9.4M", pills: ["Collections +", "Working capital +"] },
+            ebitda:  { val: "Inv CF AED (4.1M)", pills: ["CapEx", "ROU additions"] },
+            cash:    { val: "Fin CF AED (2.2M)", pills: ["Debt service", "Lease payments"] },
+            wc:      { val: "Net Change AED +3.1M", pills: ["Ending cash", "Forecast gap"] },
+          },
+          ai: "AI CF (demo): reconcile EBITDA-to-cash bridge; identify drivers (AR, AP, Inventory); isolate non-recurring cash items; add 13-week rolling forecast.",
+          client: "Client inputs (demo): capex plan, debt repayments, lease schedule, and one-off settlements."
         },
+
+        /* Placeholder pages still supported */
         "reporting.pl.exec": {
           crumb: "Reporting > Profit & Loss > Executive Summary",
           title: "P&L Executive Summary",
-          content: "High-level P&L narrative and management view (demo).",
-          ai: "AI: produce narrative for each line movement, ask client where needed."
+          kpis: null,
+          ai: "AI: produce narrative for each line movement, ask client where needed.",
+          client: "Client inputs: confirm unusual movements, rebates, one-offs, and any reclassifications."
         },
         "reporting.pl.detail": {
           crumb: "Reporting > Profit & Loss > Detailed Report",
           title: "P&L Detailed Report",
-          content: "Detailed P&L by account / cost center (demo placeholder).",
-          ai: "AI: drill down anomalies and contributors."
+          kpis: null,
+          ai: "AI: drill down anomalies and contributors.",
+          client: "Client inputs: provide trial balance mapping and cost center structure."
         },
         "reporting.bs.exec": {
           crumb: "Reporting > Balance Sheet > Executive Summary",
           title: "Balance Sheet Executive Summary",
-          content: "Key movements, liquidity view, and risks (demo placeholder).",
-          ai: "AI: explain drivers of changes and questions for the client."
+          kpis: null,
+          ai: "AI: explain drivers of changes and questions for the client.",
+          client: "Client inputs: support schedules for major accounts and reconciliations."
         },
         "reporting.bs.statements": {
           crumb: "Reporting > Balance Sheet > Statements",
           title: "Balance Sheet Statements",
-          content: "Statement layout placeholder (demo).",
-          ai: "AI: reconciliation checks and narrative for audit."
+          kpis: null,
+          ai: "AI: reconciliation checks and narrative for audit.",
+          client: "Client inputs: final FS version, note disclosures, and account breakdowns."
         },
         "reporting.cf.exec": {
           crumb: "Reporting > Cash Flow > Executive Summary",
           title: "Cash Flow Executive Summary",
-          content: "Cash overview and key movements (demo).",
-          ai: "AI: treasury recommendations and cash risk alerts."
+          kpis: null,
+          ai: "AI: treasury recommendations and cash risk alerts.",
+          client: "Client inputs: bank statements, cash pooling, and treasury policy."
         },
         "reporting.cf.statements": {
           crumb: "Reporting > Cash Flow > Statements",
           title: "Cash Flow Statements",
-          content: "Cash flow statement layout placeholder (demo).",
-          ai: "AI: explain operating/investing/financing drivers."
+          kpis: null,
+          ai: "AI: explain operating/investing/financing drivers.",
+          client: "Client inputs: CF mapping and non-cash adjustments listing."
         }
       };
 
-      const p = pages[key] || {
-        crumb: "AIFINA",
-        title: "Dashboard",
-        content: "Demo page.",
-        ai: "AI demo."
-      };
+      const p = pages[key] || pages["reporting.dashboard.generalSummary"];
 
       crumb.textContent = p.crumb;
       title.textContent = p.title;
-      content.textContent = p.content;
+
+      if (p.kpis){
+        // show KPI cards
+        document.getElementById("kpiGrid").style.display = "grid";
+        setKpi(k1, "Revenue", p.kpis.revenue.val, p.kpis.revenue.pills, "neutral");
+        setKpi(k2, "EBITDA", p.kpis.ebitda.val, p.kpis.ebitda.pills, "neutral");
+        setKpi(k3, "Cash", p.kpis.cash.val, p.kpis.cash.pills, "neutral");
+        setKpi(k4, "Working Capital", p.kpis.wc.val, p.kpis.wc.pills, "neutral");
+      } else {
+        // hide KPI cards for placeholder screens
+        document.getElementById("kpiGrid").style.display = "none";
+      }
+
       ai.textContent = p.ai;
+      client.textContent = p.client;
+    }
+
+    function setKpi(cardEl, title, val, pills, pillStyle){
+      cardEl.querySelector(".k-title").textContent = title;
+      cardEl.querySelector(".val").textContent = val;
+
+      const pillWrap = cardEl.querySelector(".sub");
+      pillWrap.innerHTML = "";
+      pills.forEach(t => {
+        const span = document.createElement("span");
+        span.className = "pill " + pillStyle;
+        span.textContent = t;
+        pillWrap.appendChild(span);
+      });
     }
 
     window.addEventListener("load", () => {
@@ -387,7 +651,7 @@
           <button class="primary-btn" type="button" onclick="nextClicked()">Next</button>
         </div>
 
-        <p style="margin:14px 0 0 0; font-size:12px; color:#6b7280;">
+        <p style="margin:14px 0 0 0; font-size:12px; color:#6b7280; font-weight:700;">
           Demo password: <b>1234</b>
         </p>
       </div>
@@ -417,8 +681,8 @@
             <div class="children">
 
               <!-- Dashboard -->
-              <div class="group" data-open="true" style="margin:0 6px;">
-                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="padding:10px">
+              <div class="group" data-open="true" style="margin:10px 10px 8px 10px;">
+                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="border-radius:12px;">
                   <span>🏠</span><span>Dashboard</span><span class="chev">▾</span>
                 </button>
 
@@ -439,8 +703,8 @@
               </div>
 
               <!-- Balance Sheet -->
-              <div class="group" data-open="false" style="margin:0 6px;">
-                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="padding:10px">
+              <div class="group" data-open="false" style="margin:0 10px 8px 10px;">
+                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="border-radius:12px;">
                   <span>📄</span><span>Balance Sheet</span><span class="chev">▾</span>
                 </button>
                 <div class="children">
@@ -454,8 +718,8 @@
               </div>
 
               <!-- Profit & Loss -->
-              <div class="group" data-open="false" style="margin:0 6px;">
-                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="padding:10px">
+              <div class="group" data-open="false" style="margin:0 10px 8px 10px;">
+                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="border-radius:12px;">
                   <span>💹</span><span>Profit &amp; Loss</span><span class="chev">▾</span>
                 </button>
                 <div class="children">
@@ -469,8 +733,8 @@
               </div>
 
               <!-- Cash Flow -->
-              <div class="group" data-open="false" style="margin:0 6px;">
-                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="padding:10px">
+              <div class="group" data-open="false" style="margin:0 10px 8px 10px;">
+                <button class="group-btn" type="button" onclick="toggleGroup(this)" style="border-radius:12px;">
                   <span>💵</span><span>Cash Flow</span><span class="chev">▾</span>
                 </button>
                 <div class="children">
@@ -495,29 +759,78 @@
 
       <!-- MAIN -->
       <main class="main">
-        <p id="crumb" class="crumb">Reporting &gt; Dashboard &gt; General Summary</p>
 
         <div class="topbar">
-          <h1 id="title" class="page-title">General Summary</h1>
+          <div class="topbar-left">
+            <div id="crumb" class="crumb">Reporting &gt; Dashboard &gt; General Summary</div>
+            <h1 id="title" class="page-title">General Summary</h1>
+          </div>
           <div class="badge">AI Insights: ON (demo)</div>
         </div>
 
-        <div class="card">
-          <h3>Dashboard</h3>
-          <p id="content" class="muted">This is your executive consolidated overview (demo).</p>
+        <!-- KPI Grid -->
+        <div id="kpiGrid" class="grid" style="margin-bottom:14px;">
+          <div id="k1" class="card" style="grid-column: span 3;">
+            <div class="kpi">
+              <h3 class="k-title">Revenue</h3>
+              <div class="val">AED 0</div>
+              <div class="sub"></div>
+            </div>
+          </div>
+
+          <div id="k2" class="card" style="grid-column: span 3;">
+            <div class="kpi">
+              <h3 class="k-title">EBITDA</h3>
+              <div class="val">AED 0</div>
+              <div class="sub"></div>
+            </div>
+          </div>
+
+          <div id="k3" class="card" style="grid-column: span 3;">
+            <div class="kpi">
+              <h3 class="k-title">Cash</h3>
+              <div class="val">AED 0</div>
+              <div class="sub"></div>
+            </div>
+          </div>
+
+          <div id="k4" class="card" style="grid-column: span 3;">
+            <div class="kpi">
+              <h3 class="k-title">Working Capital</h3>
+              <div class="val">AED 0</div>
+              <div class="sub"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="card">
-          <h3>AI Insights (demo)</h3>
-          <p id="ai" class="muted">AI: summarize performance, identify key movements, propose CFO actions.</p>
+        <div class="grid">
+          <div class="card" style="grid-column: span 7;">
+            <h3>AI Insights</h3>
+            <p id="aiText" class="muted">
+              AI summary (demo): performance is stable, but budget gap suggests either volume softness or pricing pressure.
+            </p>
+            <div style="margin-top:12px;">
+              <button class="btn" type="button" onclick="alert('Next: We will connect this to your real data later.')">
+                ✨ Generate more insights
+              </button>
+            </div>
+          </div>
+
+          <div class="card" style="grid-column: span 5;">
+            <h3>Client Inputs Needed</h3>
+            <p id="clientText" class="muted">
+              Client inputs (demo): confirm one-offs in revenue, any delayed billing, large credit notes, and any reclassification between COGS and OPEX.
+            </p>
+          </div>
+
+          <div class="card" style="grid-column: span 12;">
+            <h3>Notes</h3>
+            <p class="muted">
+              This section can later display: charts, drilldowns, attachments, and your CFO commentary format.
+            </p>
+          </div>
         </div>
 
-        <div class="card">
-          <h3>Client Inputs Needed</h3>
-          <p class="muted">
-            This section will list questions to ask the client (e.g., unusual movements, one-offs, reclassifications).
-          </p>
-        </div>
       </main>
 
     </div>
